@@ -47,7 +47,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="32dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/hiro_fdsedrftgyh"
+                android:src="@drawable/sozai"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editText" />
@@ -57,7 +57,7 @@
                 android:layout_width="81dp"
                 android:layout_height="80dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/souryo"
+                android:src="@drawable/th"
                 app:layout_constraintBottom_toBottomOf="@+id/imageButton2"
                 app:layout_constraintEnd_toEndOf="@+id/imageButton2" />
 
