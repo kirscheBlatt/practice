@@ -8,15 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.a81903.practice.fragment.Tab2Fragment;
+
 import java.util.ArrayList;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
     private LayoutInflater mInflater;
     private ArrayList<String> mData;
     private Context mContext;
 
-    public RecyclerAdapter(Context context,ArrayList<String> data){
+    public RecyclerAdapter(Context context, ArrayList<String> data, Tab2Fragment tab2Fragment){
         mInflater = LayoutInflater.from(context);
         mContext = context;
         mData = data;
@@ -24,7 +26,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         View inflate = mInflater.inflate(R.layout.cell_1,viewGroup,false);
        ViewHolder viewHolder = new ViewHolder(inflate);
@@ -33,13 +35,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         if (mData != null && mData.size() > i && mData.get(i) != null) {
             ViewHolder holder = (ViewHolder)viewHolder;
             holder.textView.setText(mData.get(i));
         }
     }
-
 
     @Override
     public int getItemCount() {

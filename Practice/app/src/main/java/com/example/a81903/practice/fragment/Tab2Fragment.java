@@ -12,18 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.a81903.practice.R;
+import com.example.a81903.practice.RecyclerAdapter;
 
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class Tab2Fragment extends Fragment {
 
 
     public Tab2Fragment() {
-        // Required empty public constructor
     }
 
     private Activity mActivity =null;
@@ -65,6 +62,8 @@ public class Tab2Fragment extends Fragment {
         array.add("B");
         array.add("C");
 
+        mAdapter = new RecyclerAdapter(mActivity,array,this);
+        mRecyclerView.setAdapter(mAdapter);
 
     }
 }
