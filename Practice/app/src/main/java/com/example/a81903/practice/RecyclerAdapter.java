@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.a81903.practice.fragment.Tab2Fragment;
 
 import java.util.ArrayList;
+import java.util.zip.Inflater;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
@@ -19,16 +20,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     private Context mContext;
 
     public RecyclerAdapter(Context context, ArrayList<String> data, Tab2Fragment tab2Fragment){
-        mInflater = LayoutInflater.from(context);
+
         mContext = context;
         mData = data;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public RecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        View inflate = mInflater.inflate(R.layout.cell_1,viewGroup,false);
+        View inflate = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cell_1,viewGroup,false);
        ViewHolder viewHolder = new ViewHolder(inflate);
         return viewHolder;
 

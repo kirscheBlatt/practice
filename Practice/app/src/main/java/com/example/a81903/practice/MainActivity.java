@@ -1,7 +1,6 @@
 package com.example.a81903.practice;
 
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -35,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     private class ViewPagerAdapter extends FragmentPagerAdapter{
 
-        public ViewPagerAdapter(FragmentManager fm) {
+        private ViewPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
