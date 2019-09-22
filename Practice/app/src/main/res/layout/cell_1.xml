@@ -4,15 +4,57 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <LinearLayout
+        android:id="@+id/thumbnail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="3dip"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        >
 
-<TextView
-    android:id="@+id/text"
-    android:text="cell_1"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    />
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:src="@mipmap/soi"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Shots Title"
+        app:layout_constraintStart_toEndOf="@+id/thumbnail"
+        app:layout_constraintTop_toTopOf="@+id/thumbnail"
+        />
+
+
+    <TextView
+        android:id="@+id/player_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Player name"
+        app:layout_constraintStart_toStartOf="@id/title"
+        app:layout_constraintTop_toBottomOf="@id/title"
+/>
+
+    <TextView
+        android:id="@+id/likes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="likes"
+        app:layout_constraintTop_toBottomOf="@id/player_name"
+        app:layout_constraintStart_toStartOf="@id/player_name"/>
+
+    <TextView
+        android:id="@+id/likes_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="100"
+        app:layout_constraintTop_toBottomOf="@id/likes"
+        app:layout_constraintStart_toStartOf="@id/likes"/>
 
 
 </android.support.constraint.ConstraintLayout>

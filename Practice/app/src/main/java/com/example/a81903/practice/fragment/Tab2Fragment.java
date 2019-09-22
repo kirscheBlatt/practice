@@ -58,7 +58,7 @@ public class Tab2Fragment extends Fragment {
 
         // 適当にデータ作成
         ArrayList<String> array = new ArrayList<>();
-        array.add("A");
+        array.add("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         array.add("B");
         array.add("C");
 
