@@ -1,5 +1,7 @@
 package com.example.a81903.practice;
 
+import android.view.View;
+
 import java.util.logging.LogManager;
 
 public final class ProcessSync {
@@ -17,6 +19,19 @@ public final class ProcessSync {
     }
 
     private static void preparationInstance(){
-       
+if (s_Instance==null){
+    s_Instance =new ProcessSync();
+}
+    }
+
+    public static View.OnClickListener tapCheck(
+            final View.OnClickListener listener
+    ){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        }
     }
 }
