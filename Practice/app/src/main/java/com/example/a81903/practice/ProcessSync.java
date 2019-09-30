@@ -1,7 +1,9 @@
 package com.example.a81903.practice;
 
+import android.net.sip.SipSession;
 import android.view.View;
 
+import java.util.Date;
 import java.util.logging.LogManager;
 
 public final class ProcessSync {
@@ -30,8 +32,24 @@ if (s_Instance==null){
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                if (!getInstance().check()){
+                    return;
+                }
+                listener.onClick(v);
             }
+        };
+    }
+    private synchronized boolean check (){
+        final long timestamp = new Date().getTime();
+        if (timestamp-mTimestamp >= TIME_SPAN_BLOCKING_MILLISECONDS){
+            mTimestamp = timestamp;
+            return true;
+        }else {
+            return false;
         }
+    }
+    public synchronized ProcessSync clear(){
+        mTimestamp=0;
+        return this;
     }
 }
