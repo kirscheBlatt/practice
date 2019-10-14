@@ -12,10 +12,10 @@ import com.example.a81903.practice.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BlankFragment extends Fragment {
+public class Tab3Fragment extends Fragment {
 
 
-    public BlankFragment() {
+    public Tab3Fragment() {
     }
 
 

@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.a81903.practice.fragment.BlankFragment;
+import com.example.a81903.practice.fragment.Tab3Fragment;
 import com.example.a81903.practice.fragment.Tab1Fragment;
 import com.example.a81903.practice.fragment.Tab2Fragment;
 import com.example.a81903.practice.fragment.Tab4Fragment;
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                     fragment = new Tab2Fragment();
                     break;
                 case 2:
-                    fragment = new BlankFragment();
+                    fragment = new Tab3Fragment();
                     break;
                 case 3:
                     fragment = new Tab4Fragment();
