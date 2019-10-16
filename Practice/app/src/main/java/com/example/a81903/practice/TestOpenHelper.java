@@ -10,7 +10,7 @@ public class TestOpenHelper extends SQLiteOpenHelper {
     //todo あとでいろんな数字入れる
     private static final int DATABASE_VERSION = 1;
 
-    
+    //todo select,delete,update,insertを使ってみる
 
 
     public TestOpenHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
