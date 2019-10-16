@@ -4,8 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import androidx.annotation.Nullable;
-
 public class MemoOpenHelper extends SQLiteOpenHelper {
     // データベース名
     static final private String DBName = "MEMO_DB";
