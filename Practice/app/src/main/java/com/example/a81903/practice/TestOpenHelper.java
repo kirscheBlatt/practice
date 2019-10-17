@@ -12,6 +12,17 @@ public class TestOpenHelper extends SQLiteOpenHelper {
 
     //todo select,delete,update,insertを使ってみる
 
+    private static final String  DATABASE_NAME = "TestDB.db";
+    private static final String TABLE_NAME = "testdb";
+    private static final String _ID = "_id";
+    private static final String COLUMN_NAME_TITLE = "company";
+    private static final String COLUMN_NAME_SUBTITLE = "stockprice";
+
+    private static final String SQL_CREATE_ENTRIES =
+            "CREATE TABLE " + "("+_ID + "INTEGER PRIMARY KEY," +
+                    COLUMN_NAME_TITLE+ " TEXT," +
+                    COLUMN_NAME_SUBTITLE + " INTEGER)";
+    
 
     public TestOpenHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
