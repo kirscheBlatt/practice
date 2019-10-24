@@ -9,7 +9,7 @@ import android.util.Log;
 public class TestOpenHelper extends SQLiteOpenHelper {
 
     //todo あとでいろんな数字入れる
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 200;
 
     //todo select,delete,update,insertを使ってみる
 
