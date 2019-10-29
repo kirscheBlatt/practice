@@ -3,12 +3,14 @@ package com.example.a81903.practice.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.a81903.practice.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -55,9 +57,45 @@ public class Tab4Fragment extends Fragment {
                     .put("int",100)
                     .put("long",18000305032230531L)
                     .put("string","string")
-                    .put("object",createJSONObject
-                    )
+                    .put("object",createJSONObject(5))
+                    .put("array" , createJSONArray(5))
+                    .putOpt(null, JSONObject.NULL)
+                    .put("put null", JSONObject.NULL)
+                    .put("array" , createJSONArray(5))
+                    .accumulate("accumulate" , 1)
+                    .accumulate("accumulate" , 2)
+                    .accumulate("accumulate" , 3);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+        Log.d("JSON","onCreate:" + jsonObject.toString());
+        return jsonObject;
+    }
+
+    private JSONObject createJSONObject(int count){
+        JSONObject jsonObject = new JSONObject();
+        try {
+            for (int i = 0 ; i < count ; i ++){
+                jsonObject.put("JSON_OBJECT_"+ i , i);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject;
+    }
+
+    private JSONArray createJSONArray(int count){
+        JSONArray jsonArray = new JSONArray();
+        try {
+            for (int i = 0 ; i < count ; i ++){
+                jsonArray.put(i,i);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonArray;
     }
 
 }
