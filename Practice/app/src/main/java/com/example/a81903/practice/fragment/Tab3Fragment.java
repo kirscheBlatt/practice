@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.Checkable;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -27,7 +29,6 @@ public class Tab3Fragment extends Fragment {
 
     public Tab3Fragment() {
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,6 +66,7 @@ public class Tab3Fragment extends Fragment {
                 readData();
             }
         });
+
         return v;
     }
 
