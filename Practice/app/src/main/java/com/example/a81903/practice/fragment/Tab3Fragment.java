@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -107,6 +108,14 @@ public class Tab3Fragment extends Fragment {
 
         Log.d("debug","**********"+sbuilder.toString());
         textView.setText(sbuilder.toString());
+    }
+
+
+    @Override
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        View view = super.getView(position, convertView,parent);
+        CheckBox ch = view.findViewById(R.id.)
+        return super.getView();
     }
 
     private void insertData(SQLiteDatabase db, String com, int price){

@@ -47,7 +47,7 @@ public class Tab2Fragment extends Fragment {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
 
-        
+
 
         return mView;
 
