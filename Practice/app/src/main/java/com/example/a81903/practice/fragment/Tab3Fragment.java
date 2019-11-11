@@ -111,12 +111,6 @@ public class Tab3Fragment extends Fragment {
     }
 
 
-    @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-        View view = super.getView(position, convertView,parent);
-        CheckBox ch = view.findViewById(R.id.)
-        return super.getView();
-    }
 
     private void insertData(SQLiteDatabase db, String com, int price){
 

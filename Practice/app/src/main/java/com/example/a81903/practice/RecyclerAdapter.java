@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.a81903.practice.fragment.Tab2Fragment;
@@ -31,6 +32,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         View inflate = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cell_1,viewGroup,false);
        ViewHolder viewHolder = new ViewHolder(inflate);
+
         return viewHolder;
 
     }
@@ -56,10 +58,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
 
          TextView textView;
+         CheckBox mCheckBox;
 
         public ViewHolder(View itemView) {
             super(itemView);
             textView = (TextView) itemView.findViewById(R.id.title);
+            mCheckBox= (CheckBox) itemView.findViewById(R.id.checkbox);
+
         }
     }
 
