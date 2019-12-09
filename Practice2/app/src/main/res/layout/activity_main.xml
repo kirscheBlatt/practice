@@ -24,7 +24,17 @@
         app:layout_constraintStart_toStartOf="@id/userList"
         app:layout_constraintTop_toBottomOf="@id/userList"
         android:layout_margin="@dimen/BASIC_MARGIN"
-        />
+        >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+
+
+
+
+
     <TextView
         android:id="@+id/logText"
         android:text="@string/log"
@@ -64,7 +74,6 @@
         app:layout_constraintTop_toTopOf="@+id/modify"
         app:layout_constraintStart_toEndOf="@id/modify"
         />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,4 +3,7 @@
     <string name="user_list">ユーザーリスト</string>
     <string name="log">ログ</string>
     <string name="log_default">現在のリスト数は０件です。</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
