@@ -1,14 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PersonalFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".PersonalFragment"
+    android:layout_margin="@dimen/BASIC_MARGIN">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/no1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintBottom_toTopOf="@+id/no2"
 
-</FrameLayout>
+        />
+
+    <TextView
+        android:id="@+id/no2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment"
+        app:layout_constraintStart_toStartOf="@+id/no1"
+        app:layout_constraintTop_toBottomOf="@+id/no1"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintBottom_toTopOf="@+id/no3"
+        />
+
+    <TextView
+        android:id="@+id/no3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment"
+        app:layout_constraintStart_toStartOf="@+id/no2"
+        app:layout_constraintTop_toBottomOf="@+id/no2"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintBottom_toTopOf="@+id/no4"
+        />
+    <TextView
+        android:id="@+id/no4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment"
+        app:layout_constraintStart_toStartOf="@+id/no3"
+        app:layout_constraintTop_toBottomOf="@+id/no3"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintBottom_toTopOf="@+id/no5"
+        />
+    <TextView
+        android:id="@+id/no5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment"
+        app:layout_constraintStart_toStartOf="@+id/no4"
+        app:layout_constraintTop_toBottomOf="@+id/no4"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintBottom_toTopOf="@+id/no6"
+        />
+
+    <TextView
+        android:id="@+id/no6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment"
+        app:layout_constraintStart_toStartOf="@+id/no5"
+        app:layout_constraintTop_toBottomOf="@+id/no5"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintBottom_toTopOf="@+id/no7"
+        />
+
+    <TextView
+        android:id="@+id/no7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment"
+        app:layout_constraintStart_toStartOf="@+id/no6"
+        app:layout_constraintTop_toBottomOf="@+id/no6"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintBottom_toTopOf="@+id/no8"
+        />
+
+    <TextView
+        android:id="@+id/no8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment"
+        app:layout_constraintStart_toStartOf="@+id/no7"
+        app:layout_constraintTop_toBottomOf="@+id/no7"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintBottom_toTopOf="@+id/no9"
+        />
+
+    <TextView
+        android:id="@+id/no9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment"
+        app:layout_constraintStart_toStartOf="@+id/no8"
+        app:layout_constraintTop_toBottomOf="@+id/no8"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintBottom_toTopOf="@+id/no10"
+        />
+
+    <TextView
+        android:id="@+id/no10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment"
+        app:layout_constraintStart_toStartOf="@+id/no9"
+        app:layout_constraintTop_toBottomOf="@+id/no9"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintBottom_toTopOf="@+id/no11"
+        />
+
+    <TextView
+        android:id="@+id/no11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment"
+        app:layout_constraintStart_toStartOf="@+id/no10"
+        app:layout_constraintTop_toBottomOf="@+id/no10"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintBottom_toTopOf="@+id/no12"
+        />
+
+    <TextView
+        android:id="@+id/no12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment"
+        app:layout_constraintStart_toStartOf="@+id/no11"
+        app:layout_constraintTop_toBottomOf="@+id/no11"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintBottom_toTopOf="@+id/no13"
+        />
+
+    <TextView
+        android:id="@+id/no13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment"
+        app:layout_constraintStart_toStartOf="@+id/no12"
+        app:layout_constraintTop_toBottomOf="@+id/no12"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintBottom_toTopOf="@+id/no14"
+        />
+
+    <TextView
+        android:id="@+id/no14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment"
+        app:layout_constraintStart_toStartOf="@+id/no13"
+        app:layout_constraintTop_toBottomOf="@+id/no13"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintBottom_toTopOf="@+id/no15"
+        />
+
+    <TextView
+        android:id="@+id/no15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment"
+        app:layout_constraintStart_toStartOf="@+id/no14"
+        app:layout_constraintTop_toBottomOf="@+id/no14"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintBottom_toTopOf="@+id/no16"
+        />
+
+    <TextView
+        android:id="@+id/no16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/no15"
+        app:layout_constraintVertical_chainStyle="spread" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
