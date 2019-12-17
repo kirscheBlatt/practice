@@ -17,15 +17,9 @@ import java.util.Locale;
 
 public class MainUIFragment extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     private String[] dataset = new String[20];
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
 
     public MainUIFragment() {
     }
@@ -65,7 +59,6 @@ public class MainUIFragment extends Fragment {
 
 
     public interface OnFragmentInteractionListener {
-
         void onFragmentInteraction(Uri uri);
     }
 }
