@@ -15,6 +15,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+    }
+
+    public void replaceFragment(){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         // BackStackを設定
@@ -25,6 +29,5 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    
 
 }

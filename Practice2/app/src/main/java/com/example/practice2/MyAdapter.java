@@ -1,5 +1,6 @@
 package com.example.practice2;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,12 +37,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //処理を描く
+
             }
         });
 
         return new ViewHolder(view);
     }
+
 
 
     @Override
