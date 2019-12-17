@@ -14,17 +14,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
         // BackStackを設定
         fragmentTransaction.addToBackStack(null);
 
-        // counterをパラメータとして設定
-        int count = 0;
-        fragmentTransaction.replace(R.id.container, Fragment01.newInstance(count));
+        fragmentTransaction.replace(R.id.fragment,PersonalFragment.newInstance());
 
         fragmentTransaction.commit();
     }
+
     
+
 }
