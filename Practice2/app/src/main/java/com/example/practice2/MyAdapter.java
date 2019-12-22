@@ -1,16 +1,41 @@
 package com.example.practice2;
 
-import android.app.Activity;
+
+import android.content.ClipData;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private String[] dataset = new String[20];
+
+
+    private final List<ClipData.Item> mList = new ArrayList<>();
+
+    private RecyclerView mRecycler;
+
+    private AdapterView.OnItemClickListener mListener;
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        mRecycler= recyclerView;
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        mRecycler = null;
+    }
 
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -25,8 +50,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         }
     }
 
+
+
     MyAdapter(String[] myDataset) {
         dataset = myDataset;
+        
     }
 
 
@@ -34,6 +62,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.dummy_user_list, parent, false);
+        //todo　ここであってるかふめい
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,6 +72,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         return new ViewHolder(view);
     }
+
+
 
 
 

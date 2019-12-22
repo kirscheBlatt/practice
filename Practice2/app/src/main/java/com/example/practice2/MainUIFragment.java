@@ -5,18 +5,20 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import java.util.Locale;
 
 
 public class MainUIFragment extends Fragment {
-
     private String[] dataset = new String[20];
 
 
@@ -44,13 +46,28 @@ public class MainUIFragment extends Fragment {
 
         recyclerView.setLayoutManager(rLayoutManager);
 
+        //todo 画像とほかのデータももらってきていれる
         for(int i=0; i < dataset.length; i++) {
-            dataset[i] = String.format(Locale.ENGLISH, "Data_0%d", i);
+            dataset[i] = String.format(Locale.ENGLISH, "うさまる_0%d", i);
         }
+        recyclerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                // BackStackを設定
+                fragmentTransaction.addToBackStack(null);
 
+                fragmentTransaction.replace(R.id.fragment, PersonalFragment.newInstance());
+                fragmentTransaction.commit();
+            }
+        });
 
         RecyclerView.Adapter rAdapter = new MyAdapter(dataset);
         recyclerView.setAdapter(rAdapter);
+
+
+
 
         return v;
     }
@@ -58,7 +75,11 @@ public class MainUIFragment extends Fragment {
 
 
 
+
+
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
     }
+
+
 }
