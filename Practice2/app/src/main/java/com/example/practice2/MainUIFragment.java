@@ -63,8 +63,19 @@ public class MainUIFragment extends Fragment {
             }
         });
 
-        RecyclerView.Adapter rAdapter = new MyAdapter(dataset);
+        MyAdapter rAdapter = new MyAdapter(dataset){
+            @Override
+            public void clickEvent(){
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.replace(R.id.fragment, PersonalFragment.newInstance());
+                fragmentTransaction.commit();
+            }
+        };
         recyclerView.setAdapter(rAdapter);
+
+
 
 
 

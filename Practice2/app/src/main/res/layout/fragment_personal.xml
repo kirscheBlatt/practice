@@ -5,13 +5,14 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".PersonalFragment"
-    android:layout_margin="@dimen/BASIC_MARGIN">
+    android:layout_margin="@dimen/BASIC_MARGIN"
+    android:background="@color/mainGray">
 
     <TextView
         android:id="@+id/no1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment"
+        android:text="1.Name"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintVertical_chainStyle="spread"
@@ -19,15 +20,15 @@
 
         />
 
-    <TextView
+    <EditText
         android:id="@+id/no2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
         app:layout_constraintStart_toStartOf="@+id/no1"
         app:layout_constraintTop_toBottomOf="@+id/no1"
         app:layout_constraintVertical_chainStyle="spread"
         app:layout_constraintBottom_toTopOf="@+id/no3"
+        android:background="@color/white"
         />
 
     <TextView
@@ -171,11 +172,11 @@
         app:layout_constraintBottom_toTopOf="@+id/no16"
         />
 
-    <TextView
+    <Button
         android:id="@+id/no16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment"
+        android:text="登録"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/no15"

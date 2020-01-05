@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     private RecyclerView mRecycler;
 
-    private AdapterView.OnItemClickListener mListener;
+    private View.OnClickListener mListener;
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
@@ -54,26 +56,27 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     MyAdapter(String[] myDataset) {
         dataset = myDataset;
-        
+
     }
 
 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
+        final View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.dummy_user_list, parent, false);
         //todo　ここであってるかふめい
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                clickEvent();
             }
         });
 
         return new ViewHolder(view);
     }
 
-
+public void clickEvent(){
+}
 
 
 
