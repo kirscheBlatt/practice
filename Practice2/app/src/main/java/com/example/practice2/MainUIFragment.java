@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import java.util.Locale;
@@ -20,16 +21,16 @@ import java.util.Locale;
 
 public class MainUIFragment extends Fragment {
     private String[] dataset = new String[20];
-
+    private View mView = null;
 
 
     public MainUIFragment() {
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
     }
 
@@ -37,7 +38,7 @@ public class MainUIFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_main_ui,container,false);
-
+        mView = v;
         RecyclerView recyclerView = (RecyclerView)v.findViewById(R.id.userRecyclerView);
 
 
@@ -58,7 +59,7 @@ public class MainUIFragment extends Fragment {
                 // BackStackを設定
                 fragmentTransaction.addToBackStack(null);
 
-                fragmentTransaction.replace(R.id.fragment, PersonalFragment.newInstance());
+                fragmentTransaction.replace(R.id.container, PersonalFragment.newInstance());
                 fragmentTransaction.commit();
             }
         });
@@ -69,7 +70,7 @@ public class MainUIFragment extends Fragment {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.replace(R.id.fragment, PersonalFragment.newInstance());
+                fragmentTransaction.replace(R.id.container, PersonalFragment.newInstance());
                 fragmentTransaction.commit();
             }
         };
