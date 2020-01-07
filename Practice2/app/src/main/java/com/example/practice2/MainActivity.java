@@ -8,13 +8,28 @@ import android.os.Bundle;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
+import java.io.File;
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity {
 
+    private String mFileName = "file.txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        File file = new File(getFilesDir() + "/" + mFileName);
+        if (file.exists()){
+
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         MainUIFragment mainUIFragment = new MainUIFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

@@ -10,18 +10,23 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.FileObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import java.io.File;
 import java.util.Locale;
 
 
 public class MainUIFragment extends Fragment {
     private String[] dataset = new String[20];
     private View mView = null;
+
+
+
 
 
     public MainUIFragment() {
@@ -39,9 +44,8 @@ public class MainUIFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_main_ui,container,false);
         mView = v;
+
         RecyclerView recyclerView = (RecyclerView)v.findViewById(R.id.userRecyclerView);
-
-
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager rLayoutManager = new LinearLayoutManager(getActivity());
 
