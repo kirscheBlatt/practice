@@ -28,7 +28,9 @@
         app:layout_constraintTop_toBottomOf="@+id/no1"
         app:layout_constraintVertical_chainStyle="spread"
         app:layout_constraintBottom_toTopOf="@+id/no3"
-        android:background="@color/white"
+        android:inputType="text"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimary"
         />
 
     <TextView

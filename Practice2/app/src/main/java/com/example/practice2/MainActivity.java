@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+
+
         MainUIFragment mainUIFragment = new MainUIFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

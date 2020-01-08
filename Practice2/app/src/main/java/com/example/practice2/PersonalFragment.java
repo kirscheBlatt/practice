@@ -19,8 +19,6 @@ import org.json.JSONObject;
 public class PersonalFragment extends Fragment {
 
 
-
-
     public PersonalFragment() {
 
     }
