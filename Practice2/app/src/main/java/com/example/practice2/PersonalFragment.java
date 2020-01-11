@@ -1,7 +1,5 @@
 package com.example.practice2;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,6 +12,10 @@ import android.widget.EditText;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 
 public class PersonalFragment extends Fragment {
@@ -42,7 +44,7 @@ public class PersonalFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_personal, container, false);
 
 
-        editText = v.findViewById(R.id.no2);
+        editText = v.findViewById(R.id.writeName);
         Button button = v.findViewById(R.id.no16);
         button.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -51,6 +53,14 @@ public class PersonalFragment extends Fragment {
                 JSONObject jsonObject = createJSON();
                 new CachePref().put("name",jsonObject.toString());
 
+                File file = new File("c:¥¥tmp¥¥test.txt");
+                try {
+                    FileWriter filewriter = new FileWriter(file);
+
+                    filewriter.write(jsonObject.toString());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 

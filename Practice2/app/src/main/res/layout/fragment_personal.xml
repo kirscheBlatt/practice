@@ -5,83 +5,108 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".PersonalFragment"
-    android:layout_margin="@dimen/BASIC_MARGIN"
+    android:padding="@dimen/BASIC_MARGIN"
     android:background="@color/mainGray">
 
     <TextView
-        android:id="@+id/no1"
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1.Name"
+        android:text="@string/name"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintVertical_chainStyle="spread"
-        app:layout_constraintBottom_toTopOf="@+id/no2"
+        app:layout_constraintBottom_toTopOf="@+id/writeName"
 
         />
 
     <EditText
-        android:id="@+id/no2"
-        android:layout_width="100dp"
+        android:id="@+id/writeName"
+        android:layout_width="match_parent"
         android:layout_height="20dp"
-        app:layout_constraintStart_toStartOf="@+id/no1"
-        app:layout_constraintTop_toBottomOf="@+id/no1"
+        app:layout_constraintStart_toStartOf="@+id/name"
+        app:layout_constraintTop_toBottomOf="@+id/name"
         app:layout_constraintVertical_chainStyle="spread"
-        app:layout_constraintBottom_toTopOf="@+id/no3"
+        app:layout_constraintBottom_toTopOf="@+id/gender"
         android:inputType="text"
-        android:textColor="@color/white"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/border"
+        android:hint="@string/name_hint"
         />
 
     <TextView
-        android:id="@+id/no3"
+        android:id="@+id/gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment"
-        app:layout_constraintStart_toStartOf="@+id/no2"
-        app:layout_constraintTop_toBottomOf="@+id/no2"
+        android:text="@string/gender"
+        app:layout_constraintStart_toStartOf="@+id/writeName"
+        app:layout_constraintTop_toBottomOf="@+id/writeName"
         app:layout_constraintVertical_chainStyle="spread"
-        app:layout_constraintBottom_toTopOf="@+id/no4"
-        />
-    <TextView
-        android:id="@+id/no4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment"
-        app:layout_constraintStart_toStartOf="@+id/no3"
-        app:layout_constraintTop_toBottomOf="@+id/no3"
-        app:layout_constraintVertical_chainStyle="spread"
-        app:layout_constraintBottom_toTopOf="@+id/no5"
-        />
-    <TextView
-        android:id="@+id/no5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment"
-        app:layout_constraintStart_toStartOf="@+id/no4"
-        app:layout_constraintTop_toBottomOf="@+id/no4"
-        app:layout_constraintVertical_chainStyle="spread"
-        app:layout_constraintBottom_toTopOf="@+id/no6"
+        app:layout_constraintBottom_toTopOf="@+id/genderRadio"
         />
 
-    <TextView
-        android:id="@+id/no6"
+    <RadioGroup
+        android:id="@+id/genderRadio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment"
-        app:layout_constraintStart_toStartOf="@+id/no5"
-        app:layout_constraintTop_toBottomOf="@+id/no5"
+        app:layout_constraintStart_toStartOf="@+id/gender"
+        app:layout_constraintTop_toBottomOf="@+id/gender"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintBottom_toTopOf="@+id/birthday"
+        android:orientation="horizontal"
+        >
+
+        <RadioButton
+            android:id="@+id/male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/male"
+            android:checked="true"
+            />
+
+        <RadioButton
+            android:id="@+id/female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/female" />
+
+    </RadioGroup>
+
+
+
+
+    <TextView
+        android:id="@+id/birthday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/birthday"
+        app:layout_constraintStart_toStartOf="@+id/genderRadio"
+        app:layout_constraintTop_toBottomOf="@+id/genderRadio"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintBottom_toTopOf="@+id/birth_year_spinner"
+        />
+
+
+    <Spinner
+        android:id="@+id/birth_year_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/birthday"
+        app:layout_constraintTop_toBottomOf="@+id/birthday"
         app:layout_constraintVertical_chainStyle="spread"
         app:layout_constraintBottom_toTopOf="@+id/no7"
+        android:entries="@array/birth_year_ist"
+        android:background="@color/white"
         />
+
+
 
     <TextView
         android:id="@+id/no7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello_blank_fragment"
-        app:layout_constraintStart_toStartOf="@+id/no6"
-        app:layout_constraintTop_toBottomOf="@+id/no6"
+        app:layout_constraintStart_toStartOf="@+id/birth_year_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/birth_year_spinner"
         app:layout_constraintVertical_chainStyle="spread"
         app:layout_constraintBottom_toTopOf="@+id/no8"
         />
