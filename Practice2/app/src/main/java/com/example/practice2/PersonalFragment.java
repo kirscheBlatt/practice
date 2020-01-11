@@ -3,6 +3,8 @@ package com.example.practice2;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,13 +47,13 @@ public class PersonalFragment extends Fragment {
 
 
         editText = v.findViewById(R.id.writeName);
-        Button button = v.findViewById(R.id.no16);
+        Button button = v.findViewById(R.id.register);
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 editText.getText().toString();
                 JSONObject jsonObject = createJSON();
-                new CachePref().put("name",jsonObject.toString());
+ //               new CachePref().put("name",jsonObject.toString());
 
                 File file = new File("c:¥¥tmp¥¥test.txt");
                 try {
@@ -61,10 +63,19 @@ public class PersonalFragment extends Fragment {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                showMainUIFragment();
             }
         });
 
         return v;
+    }
+
+    private void showMainUIFragment(){
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.container, MainUIFragment.newInstance());
+        fragmentTransaction.commit();
     }
 
     private JSONObject createJSON(){

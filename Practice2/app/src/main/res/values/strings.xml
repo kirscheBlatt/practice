@@ -12,8 +12,18 @@
     <string name="male">男性</string>
     <string name="female">女性</string>
     <string name="birthday">③　生年月日</string>
+    <string name="year">年</string>
+    <string name="month">月</string>
+    <string name="day">日</string>
+    <string name="address">④　住所</string>
+    <string name="address_hint">住所</string>
+    <string name="address_open">住所公開</string>
+    <string name="image">⑤　画像</string>
+    <string name="select">選択</string>
+    <string name="register">登録</string>
+    <string name="cancel">キャンセル</string>
 
-    <string-array name="birth_year_ist">
+    <string-array name="birth_year_list">
         <item>1983</item>
         <item>1984</item>
         <item>1985</item>
@@ -53,6 +63,54 @@
         <item>2019</item>
         <item>2020</item>
     </string-array>
+    <string-array name="birth_month_list">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
+    <string-array name="birth_day_list">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+    </string-array>
+
 
 
     <!-- TODO: Remove or change this placeholder text -->

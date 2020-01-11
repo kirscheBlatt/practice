@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_weight="1">
 
     <ImageView
         android:id="@+id/picture"
@@ -14,13 +15,42 @@
         android:adjustViewBounds="true"
         />
 
-
-    <TextView
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        >
+       <TextView
         android:id="@+id/text_view"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="dummy"
+        android:layout_height="wrap_content"
+        android:text="@string/name"
+           />
+       <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/gender"
+           />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/birthday"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/address"
+            />
 
-    />
+    </LinearLayout>
+
+    <ImageView
+        android:src="@drawable/info"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginRight="@dimen/BASIC_MARGIN"
+        />
 
 </LinearLayout>
