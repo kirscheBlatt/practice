@@ -21,16 +21,25 @@ import android.widget.ImageView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileDescriptor;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class PersonalFragment extends Fragment {
 
+
+    private String fileName = "file.txt";
 
     public PersonalFragment() {
 
@@ -57,6 +66,10 @@ public class PersonalFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_personal, container, false);
 
+        createFile();
+
+
+
         imageView = v.findViewById(R.id.image);
         selectButton = v.findViewById(R.id.selectButton);
         selectButton.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +87,9 @@ public class PersonalFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                editText.getText().toString();
+
+                String text = editText.getText().toString();
+                saveFile(fileName,text);
               JSONObject jsonObject = createJSON();
 //               new CachePref().put("name",jsonObject.toString());
 
@@ -87,6 +102,19 @@ public class PersonalFragment extends Fragment {
                     e.printStackTrace();
                 }
                 showMainUIFragment();
+            }
+        });
+
+        Button cancel = v.findViewById(R.id.cancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String string = readFile(fileName);
+                if (string != null) {
+                    editText.setText(string);
+                } else {
+                    editText.setText("akan");
+                }
             }
         });
 
@@ -135,4 +163,45 @@ public class PersonalFragment extends Fragment {
         parcelFileDescriptor.close();
         return image;
     }
+    public void createFile() {
+        File file = new File(getContext().getFilesDir() + "/" + fileName);
+        if(!file.exists()){
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+            }
+        }
+    }
+
+    public void saveFile(String file, String str) {
+        try {
+            FileOutputStream fos = getContext().openFileOutput(file, MODE_PRIVATE);
+            OutputStreamWriter osw = new OutputStreamWriter(fos);
+            BufferedWriter writer = new BufferedWriter(osw);
+            writer.write(str);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String readFile(String file) {
+        String text = null;
+        try {
+            FileInputStream fileInputStream = getContext().openFileInput(file);
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(fileInputStream, "UTF-8"));
+            String lineBuffer;
+            while( (lineBuffer = reader.readLine()) != null ) {
+                text = lineBuffer ;
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return text;
+    }
+
+
 }

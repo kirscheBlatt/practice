@@ -22,15 +22,12 @@ public class MainActivity extends AppCompatActivity {
 
         File file = new File(getFilesDir() + "/" + mFileName);
         if (file.exists()){
-
             try {
                 file.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
-
 
         MainUIFragment mainUIFragment = new MainUIFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
