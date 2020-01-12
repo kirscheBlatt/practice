@@ -26,8 +26,7 @@ import java.util.Locale;
 public class MainUIFragment extends Fragment {
     private String[] dataset = new String[20];
     private View mView = null;
-
-
+    private ImageView imageView;
 
     public static MainUIFragment newInstance() {
         MainUIFragment fragment = new MainUIFragment();
@@ -50,6 +49,7 @@ public class MainUIFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_main_ui,container,false);
         mView = v;
 
+        //RecyclerViewの設置
         RecyclerView recyclerView = (RecyclerView)v.findViewById(R.id.userRecyclerView);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager rLayoutManager = new LinearLayoutManager(getActivity());
@@ -100,7 +100,6 @@ public class MainUIFragment extends Fragment {
                 showPersonalFragment();
             }
         });
-
 
 
 
