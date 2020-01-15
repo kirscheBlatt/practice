@@ -31,6 +31,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
@@ -38,20 +42,20 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class PersonalFragment extends Fragment {
 
+    public PersonalFragment() {
+    }
 
+
+    List<Map<String, Object>> List = new ArrayList<>();
     private String fileName = "file.txt";
 
-    public PersonalFragment() {
 
+    private static PersonalFragment newInstance() {
+        PersonalFragment personalfragment = new PersonalFragment();
+        return personalfragment;
     }
 
-
-    public static PersonalFragment newInstance() {
-        PersonalFragment fragment = new PersonalFragment();
-        return fragment;
-    }
-
-    private EditText editText = null;
+    private EditText editText;
     private ImageView imageView;
     private Button selectButton;
     private static final int RESULT_PICK_IMAGEFILE = 1000;
@@ -68,8 +72,6 @@ public class PersonalFragment extends Fragment {
 
         createFile();
 
-
-
         imageView = v.findViewById(R.id.image);
         selectButton = v.findViewById(R.id.selectButton);
         selectButton.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +81,7 @@ public class PersonalFragment extends Fragment {
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 intent.setType("image/*");
                 startActivityForResult(intent,RESULT_PICK_IMAGEFILE);
+                makeList();
             }
         });
 
@@ -90,17 +93,17 @@ public class PersonalFragment extends Fragment {
 
                 String text = editText.getText().toString();
                 saveFile(fileName,text);
-              JSONObject jsonObject = createJSON();
+//              JSONObject jsonObject = createJSON();
 //               new CachePref().put("name",jsonObject.toString());
-
-                File file = new File("c:¥¥tmp¥¥test.txt");
-                try {
-                    FileWriter filewriter = new FileWriter(file);
-
-                    filewriter.write(jsonObject.toString());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+//
+//                File file = new File("c:¥¥tmp¥¥test.txt");
+//                try {
+//                    FileWriter filewriter = new FileWriter(file);
+//
+//                    filewriter.write(jsonObject.toString());
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
                 showMainUIFragment();
             }
         });
@@ -129,15 +132,15 @@ public class PersonalFragment extends Fragment {
         fragmentTransaction.commit();
     }
 
-    private JSONObject createJSON(){
-       JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("name",editText.getText().toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return jsonObject;
-    }
+//    private JSONObject createJSON(){
+//       JSONObject jsonObject = new JSONObject();
+//        try {
+//            jsonObject.put("name",editText.getText().toString());
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        return jsonObject;
+//    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -203,5 +206,17 @@ public class PersonalFragment extends Fragment {
         return text;
     }
 
+    private void makeList(){
+        Map<String, Object> personalData = new HashMap<>();
+        personalData.put("名前", editText.getText().toString());
+        personalData.put("男", true);
+        personalData.put("生年月日", "");
+        personalData.put("年齢", "");
+        personalData.put("住所", "");
+        personalData.put("公開", true);
+        personalData.put("画像", "どうしよう");
+
+        List.add(personalData);
+    }
 
 }
