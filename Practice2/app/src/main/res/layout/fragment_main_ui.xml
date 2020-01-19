@@ -58,6 +58,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logView"
+        android:background="@drawable/custom_button"
+        android:layout_margin="8dp"
         />
     <Button
         android:id="@+id/modify"
@@ -66,6 +68,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@+id/add"
         app:layout_constraintStart_toEndOf="@+id/add"
+        android:background="@drawable/custom_button"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         />
     <Button
         android:id="@+id/delete"
@@ -74,15 +79,23 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@+id/modify"
         app:layout_constraintStart_toEndOf="@id/modify"
+        android:background="@drawable/custom_button"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         />
 
-    <Button
+<!--    <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add" />
+        app:layout_constraintTop_toBottomOf="@+id/add"
+        android:background="@drawable/custom_button"
+        android:textColor="@color/white"
+        android:layout_margin="8dp"
+        />
+        -->
 
     <ScrollView
         android:id="@+id/logView"

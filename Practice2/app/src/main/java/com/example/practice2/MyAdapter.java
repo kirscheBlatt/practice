@@ -27,6 +27,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     private View.OnClickListener mListener;
 
+    private View v;
+
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
@@ -62,17 +64,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        final View view = LayoutInflater.from(parent.getContext())
+        v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.dummy_user_list, parent, false);
         //todo　ここであってるかふめい
-        view.setOnClickListener(new View.OnClickListener() {
+        v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickEvent();
             }
         });
 
-        return new ViewHolder(view);
+        return new ViewHolder(v);
     }
 
 public void clickEvent(){
@@ -83,6 +85,14 @@ public void clickEvent(){
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.mTextView.setText(dataset[position]);
+        final  ViewHolder viewHolder = holder;
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewHolder.getAdapterPosition();
+
+            }
+        });
     }
 
     @Override

@@ -6,4 +6,5 @@
 
     <color name="mainGray">#fffff0</color>
     <color name="white">#ffffff</color>
+    <color name="mainColor">#deb887</color>
 </resources>

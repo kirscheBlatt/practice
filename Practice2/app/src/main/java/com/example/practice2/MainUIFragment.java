@@ -24,10 +24,9 @@ import java.util.Locale;
 
 
 public class MainUIFragment extends Fragment {
-    private String[] dataset = new String[20];
+    private String[] dataset = new String[2];
     private View mView = null;
-    private ImageView imageView;
-
+    public static final String fileName = "file.txt";
     public static MainUIFragment newInstance() {
         MainUIFragment fragment = new MainUIFragment();
         return fragment;
@@ -57,6 +56,8 @@ public class MainUIFragment extends Fragment {
         recyclerView.addItemDecoration(itemDecoration);
         recyclerView.setLayoutManager(rLayoutManager);
 
+        PersonalFragment personalFragment = new PersonalFragment();
+//        String  s = personalFragment.readFile(fileName);
         //todo 画像とほかのデータももらってきていれる
         for(int i=0; i < dataset.length; i++) {
             dataset[i] = String.format(Locale.ENGLISH, "①　住所_0%d", i);
@@ -64,24 +65,12 @@ public class MainUIFragment extends Fragment {
         recyclerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                // BackStackを設定
-                fragmentTransaction.addToBackStack(null);
-
-                fragmentTransaction.replace(R.id.container, PersonalFragment.newInstance());
-                fragmentTransaction.commit();
             }
         });
 
         MyAdapter rAdapter = new MyAdapter(dataset){
             @Override
             public void clickEvent(){
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.replace(R.id.container, PersonalFragment.newInstance());
-                fragmentTransaction.commit();
             }
         };
         recyclerView.setAdapter(rAdapter);

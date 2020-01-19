@@ -158,6 +158,8 @@
         app:layout_constraintBottom_toTopOf="@+id/editAddress"
         />
 
+    
+
     <EditText
         android:id="@+id/editAddress"
         android:layout_width="match_parent"
@@ -204,6 +206,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageText"
         app:layout_constraintVertical_chainStyle="spread"
         app:layout_constraintBottom_toTopOf="@+id/image"
+        android:background="@drawable/custom_button"
         />
 
     <ImageView
@@ -227,6 +230,7 @@
         app:layout_constraintTop_toBottomOf="@+id/image"
         app:layout_constraintVertical_chainStyle="spread"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/custom_button"
         />
 
     <Button
@@ -236,6 +240,9 @@
         android:text="@string/cancel"
         app:layout_constraintStart_toEndOf="@+id/register"
         app:layout_constraintTop_toTopOf="@+id/register"
+        android:background="@drawable/custom_button"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         />
 
 

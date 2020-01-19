@@ -14,11 +14,15 @@ import android.os.ParcelFileDescriptor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.Toast;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -27,7 +31,6 @@ import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -45,53 +48,87 @@ public class PersonalFragment extends Fragment {
     public PersonalFragment() {
     }
 
-
+    /**
+     * データ保存用のリスト
+     */
     List<Map<String, Object>> List = new ArrayList<>();
+
+    /**
+     *　保存のテキストファイルの名前
+     */
     private String fileName = "file.txt";
 
 
-    private static PersonalFragment newInstance() {
+    private EditText editText;
+    private ImageView personalImage;
+    private Button selectButton;
+    private static final int RESULT_PICK_IMAGEFILE = 1000;
+    private RadioGroup mRadioGroup;
+    private String gender = "male";
+    private String year = "2000";
+    private String month ="1";
+    private String  day = "1";
+
+    /**
+     * インスタンス化の時に引数を渡すよう
+     */
+    static PersonalFragment newInstance() {
         PersonalFragment personalfragment = new PersonalFragment();
         return personalfragment;
     }
 
-    private EditText editText;
-    private ImageView imageView;
-    private Button selectButton;
-    private static final int RESULT_PICK_IMAGEFILE = 1000;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+
+
+
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_personal, container, false);
+        final View v = inflater.inflate(R.layout.fragment_personal, container, false);
 
+        //テキストファイル作成
         createFile();
 
-        imageView = v.findViewById(R.id.image);
+        personalImage = v.findViewById(R.id.image);
         selectButton = v.findViewById(R.id.selectButton);
         selectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //ToDo　画像を表示させたい
                 Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 intent.setType("image/*");
                 startActivityForResult(intent,RESULT_PICK_IMAGEFILE);
+
+
                 makeList();
             }
         });
 
         editText = v.findViewById(R.id.writeName);
+
+        String string = readFile(fileName);
+        if (string != null) {
+            editText.setText(string);
+        } else {
+            editText.setText("akan");
+        }
+
+        /**
+         * 登録ボタンの処理
+         */
         Button button = v.findViewById(R.id.register);
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
 
-                String text = editText.getText().toString();
+                String text = editText.getText().toString() + gender;
+
                 saveFile(fileName,text);
 //              JSONObject jsonObject = createJSON();
 //               new CachePref().put("name",jsonObject.toString());
@@ -104,20 +141,70 @@ public class PersonalFragment extends Fragment {
 //                } catch (IOException e) {
 //                    e.printStackTrace();
 //                }
+
                 showMainUIFragment();
             }
         });
 
+        /**
+         * キャンセルボタンの処理
+         */
         Button cancel = v.findViewById(R.id.cancel);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String string = readFile(fileName);
-                if (string != null) {
-                    editText.setText(string);
-                } else {
-                    editText.setText("akan");
-                }
+
+                showMainUIFragment();
+            }
+        });
+
+        /**
+         * ラジオボタンの処理
+         */
+        mRadioGroup = v.findViewById(R.id.genderRadio);
+        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton radioButton =v.findViewById(checkedId);
+                gender = radioButton.getText().toString();
+            }
+        });
+
+        final Spinner yearSpinner = v.findViewById(R.id.birth_year_spinner);
+        yearSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                year = (String) yearSpinner.getSelectedItem();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        final Spinner monthSpinner = v.findViewById(R.id.birth_month_spinner);
+        monthSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                month = (String) monthSpinner.getSelectedItem();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        final Spinner daySpinner = v.findViewById(R.id.birth_day_spinner);
+        daySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                day = (String) daySpinner.getSelectedItem();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
 
@@ -151,7 +238,7 @@ public class PersonalFragment extends Fragment {
                 
                 try {
                     Bitmap bmp = getBitmapFromUri(uri);
-                    imageView.setImageBitmap(bmp);
+                    personalImage.setImageBitmap(bmp);
                 }catch (IOException e){
                     e.printStackTrace();
                 }
@@ -200,7 +287,7 @@ public class PersonalFragment extends Fragment {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            text = "null";
         }
 
         return text;
@@ -209,8 +296,10 @@ public class PersonalFragment extends Fragment {
     private void makeList(){
         Map<String, Object> personalData = new HashMap<>();
         personalData.put("名前", editText.getText().toString());
-        personalData.put("男", true);
-        personalData.put("生年月日", "");
+        personalData.put("性別", gender);
+        personalData.put("生年", year);
+        personalData.put("生月", month);
+        personalData.put("生日", day);
         personalData.put("年齢", "");
         personalData.put("住所", "");
         personalData.put("公開", true);
