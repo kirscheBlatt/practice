@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
@@ -35,6 +36,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,6 +70,8 @@ public class PersonalFragment extends Fragment {
     private String year = "2000";
     private String month ="1";
     private String  day = "1";
+    private int age = 1;
+    private TextView ageNumberText;
 
     /**
      * インスタンス化の時に引数を渡すよう
@@ -171,10 +175,18 @@ public class PersonalFragment extends Fragment {
         });
 
         final Spinner yearSpinner = v.findViewById(R.id.birth_year_spinner);
+        final Spinner monthSpinner = v.findViewById(R.id.birth_month_spinner);
+        final Spinner daySpinner = v.findViewById(R.id.birth_day_spinner);
+
+        ageNumberText = v.findViewById(R.id.ageNumber);
+
         yearSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 year = (String) yearSpinner.getSelectedItem();
+                month = (String) monthSpinner.getSelectedItem();
+                day = (String) daySpinner.getSelectedItem();
+                calcAge(year,month,day);
             }
 
             @Override
@@ -183,23 +195,27 @@ public class PersonalFragment extends Fragment {
             }
         });
 
-        final Spinner monthSpinner = v.findViewById(R.id.birth_month_spinner);
+
         monthSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                year = (String) yearSpinner.getSelectedItem();
                 month = (String) monthSpinner.getSelectedItem();
+                day = (String) daySpinner.getSelectedItem();
+                calcAge(year,month,day);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
-        final Spinner daySpinner = v.findViewById(R.id.birth_day_spinner);
         daySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                year = (String) yearSpinner.getSelectedItem();
+                month = (String) monthSpinner.getSelectedItem();
                 day = (String) daySpinner.getSelectedItem();
+                calcAge(year,month,day);
             }
 
             @Override
@@ -207,6 +223,8 @@ public class PersonalFragment extends Fragment {
 
             }
         });
+
+
 
         return v;
     }
@@ -292,6 +310,28 @@ public class PersonalFragment extends Fragment {
 
         return text;
     }
+
+    private void calcAge(String yea,String  mon,String  da){
+
+
+        int y = Integer.valueOf(yea);
+        int m = Integer.valueOf(mon);
+        int d = Integer.valueOf(da);
+
+
+        Calendar target = Calendar.getInstance();
+//今日の日付を取るならsetメソッドは不要，Calendarクラスで月は1小さい数で表す
+        Calendar birthday = Calendar.getInstance();
+        birthday.set(y, m-1, d); //誕生日の年月日をセット
+
+        age = target.get(Calendar.YEAR) - y;
+
+        birthday.set(Calendar.YEAR, Calendar.YEAR); //誕生日の年を対象の年にスライド
+        if(target.get(Calendar.DAY_OF_YEAR) < birthday.get(Calendar.DAY_OF_YEAR))
+            age -= 1; //求めた年齢を1引く
+        ageNumberText.setText(String.valueOf(age));
+    }
+
 
     private void makeList(){
         Map<String, Object> personalData = new HashMap<>();

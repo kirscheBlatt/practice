@@ -94,7 +94,7 @@
         app:layout_constraintStart_toStartOf="@+id/birthday"
         app:layout_constraintTop_toBottomOf="@+id/birthday"
         app:layout_constraintVertical_chainStyle="spread"
-        app:layout_constraintBottom_toTopOf="@+id/address"
+        app:layout_constraintBottom_toTopOf="@+id/age"
         android:entries="@array/birth_year_list"
         android:background="@color/white"
         />
@@ -148,17 +148,49 @@
 
 
     <TextView
+        android:id="@+id/age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/age"
+        app:layout_constraintStart_toStartOf="@+id/birth_year_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/birth_year_spinner"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintBottom_toTopOf="@+id/ageNumber"
+        />
+
+    <TextView
+        android:id="@+id/ageNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10"
+        app:layout_constraintStart_toStartOf="@+id/age"
+        app:layout_constraintTop_toBottomOf="@+id/age"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintBottom_toTopOf="@+id/address"
+        />
+
+    <TextView
+        android:id="@+id/ageWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ageWord"
+        app:layout_constraintStart_toEndOf="@+id/ageNumber"
+        app:layout_constraintTop_toTopOf="@+id/ageNumber"
+        />
+
+
+    <TextView
         android:id="@+id/address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/address"
-        app:layout_constraintStart_toStartOf="@+id/birth_year_spinner"
-        app:layout_constraintTop_toBottomOf="@+id/birth_year_spinner"
+        app:layout_constraintStart_toStartOf="@+id/ageNumber"
+        app:layout_constraintTop_toBottomOf="@+id/ageNumber"
         app:layout_constraintVertical_chainStyle="spread"
         app:layout_constraintBottom_toTopOf="@+id/editAddress"
         />
 
-    
+
 
     <EditText
         android:id="@+id/editAddress"
