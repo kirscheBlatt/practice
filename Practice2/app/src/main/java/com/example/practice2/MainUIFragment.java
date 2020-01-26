@@ -18,15 +18,23 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 
 public class MainUIFragment extends Fragment {
-    private String[] dataset = new String[2];
+
+    List<Map<String, Object>> dataList = new ArrayList<>();
+    Data mData = Data.getInstance();
     private View mView = null;
     public static final String fileName = "file.txt";
+    static int p;
+
     public static MainUIFragment newInstance() {
         MainUIFragment fragment = new MainUIFragment();
         return fragment;
@@ -39,7 +47,6 @@ public class MainUIFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -59,16 +66,10 @@ public class MainUIFragment extends Fragment {
         PersonalFragment personalFragment = new PersonalFragment();
 //        String  s = personalFragment.readFile(fileName);
         //todo 画像とほかのデータももらってきていれる
-        for(int i=0; i < dataset.length; i++) {
-            dataset[i] = String.format(Locale.ENGLISH, "①　住所_0%d", i);
-        }
-        recyclerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
+        dataList = mData.getPersonalDataList();
 
-        MyAdapter rAdapter = new MyAdapter(dataset){
+
+        final MyAdapter rAdapter = new MyAdapter(dataList){
             @Override
             public void clickEvent(){
             }
@@ -77,37 +78,41 @@ public class MainUIFragment extends Fragment {
 
         Button addButton = v.findViewById(R.id.add);
         Button modifyButton = v.findViewById(R.id.modify);
+        //追加ボタンの処理
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              showPersonalFragment();
+                int p = rAdapter.getPosition();
+              showPersonalFragment(true,p);
             }
         });
+        //更新ボタンの処理
         modifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPersonalFragment();
+                p= rAdapter.getPosition();
+                showPersonalFragment(false,p);
             }
         });
 
-
+        TextView logText = v.findViewById(R.id.logData);
+        int n = dataList.size();
+        logText.setText(String.format(Locale.ENGLISH,"現在のリストは%d件です",n));
 
         return v;
     }
 
-    private void showPersonalFragment(){
+    private void showPersonalFragment(boolean addMode, int pos){
+
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.container, PersonalFragment.newInstance());
+        fragmentTransaction.replace(R.id.container, PersonalFragment.newInstance(addMode,pos));
         fragmentTransaction.commit();
     }
 
 
 
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
-    }
 
 
 }

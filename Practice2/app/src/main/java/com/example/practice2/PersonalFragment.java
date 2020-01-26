@@ -50,10 +50,12 @@ public class PersonalFragment extends Fragment {
     public PersonalFragment() {
     }
 
+    Data mData = Data.getInstance();
+
     /**
      * データ保存用のリスト
      */
-    List<Map<String, Object>> List = new ArrayList<>();
+    List<Map<String, Object>> list = new ArrayList<>();
 
     /**
      *　保存のテキストファイルの名前
@@ -72,12 +74,16 @@ public class PersonalFragment extends Fragment {
     private String  day = "1";
     private int age = 1;
     private TextView ageNumberText;
+    static boolean modifyMode;
+    static int posi;
 
     /**
      * インスタンス化の時に引数を渡すよう
      */
-    static PersonalFragment newInstance() {
+    static PersonalFragment newInstance(boolean mode,int p) {
         PersonalFragment personalfragment = new PersonalFragment();
+        modifyMode = mode;
+        posi = p;
         return personalfragment;
     }
 
@@ -95,8 +101,16 @@ public class PersonalFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.fragment_personal, container, false);
 
+        list = mData.getPersonalDataList();
+
+
+
         //テキストファイル作成
-        createFile();
+        if (modifyMode){
+
+        }else {
+            createFile();
+        }
 
         personalImage = v.findViewById(R.id.image);
         selectButton = v.findViewById(R.id.selectButton);
@@ -116,11 +130,20 @@ public class PersonalFragment extends Fragment {
 
         editText = v.findViewById(R.id.writeName);
 
-        String string = readFile(fileName);
-        if (string != null) {
-            editText.setText(string);
-        } else {
-            editText.setText("akan");
+        if (modifyMode){
+
+        }else {
+
+            Map<String,Object> map = list.get(posi);
+            String string = (String) map.get("名前");
+
+
+            if (string != null) {
+                editText.setText(string);
+            } else {
+                editText.setText("akan");
+            }
+
         }
 
         /**
@@ -131,7 +154,7 @@ public class PersonalFragment extends Fragment {
             @Override
             public void onClick(View view){
 
-                String text = editText.getText().toString() + gender;
+                String text = editText.getText().toString();
 
                 saveFile(fileName,text);
 //              JSONObject jsonObject = createJSON();
@@ -145,7 +168,7 @@ public class PersonalFragment extends Fragment {
 //                } catch (IOException e) {
 //                    e.printStackTrace();
 //                }
-
+                makeList();
                 showMainUIFragment();
             }
         });
@@ -340,12 +363,14 @@ public class PersonalFragment extends Fragment {
         personalData.put("生年", year);
         personalData.put("生月", month);
         personalData.put("生日", day);
-        personalData.put("年齢", "");
+        personalData.put("年齢", age);
         personalData.put("住所", "");
         personalData.put("公開", true);
         personalData.put("画像", "どうしよう");
 
-        List.add(personalData);
+
+        list.add(personalData);
+        mData.setPersonalDataList(list);
     }
 
 }

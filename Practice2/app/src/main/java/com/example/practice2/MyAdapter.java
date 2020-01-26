@@ -5,20 +5,17 @@ import android.content.ClipData;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-    private String[] dataset = new String[20];
+    List<Map<String, Object>> dataset;
 
 
     private final List<ClipData.Item> mList = new ArrayList<>();
@@ -28,6 +25,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private View.OnClickListener mListener;
 
     private View v;
+
+    int p;
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
@@ -46,17 +45,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
 
 
-        TextView mTextView;
+        TextView nameTextView;
+        TextView ageTextView;
+
 
         ViewHolder(View v) {
             super(v);
-            mTextView = (TextView)v.findViewById(R.id.text_view);
+            nameTextView = (TextView)v.findViewById(R.id.name);
+            ageTextView = v.findViewById(R.id.age);
         }
     }
 
 
 
-    MyAdapter(String[] myDataset) {
+    MyAdapter(List<Map<String, Object>> myDataset) {
         dataset = myDataset;
 
     }
@@ -66,6 +68,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.dummy_user_list, parent, false);
+
         //todo　ここであってるかふめい
         v.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,12 +87,17 @@ public void clickEvent(){
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.mTextView.setText(dataset[position]);
+        Map<String, Object> item = dataset.get(position);
+        String menuName = (String)item.get("名前");
+        int menuAge = (Integer)item.get("年齢");
+        String menuAgeStr = String.valueOf(menuAge);
+        holder.nameTextView.setText(menuName);
+        holder.ageTextView.setText(menuAgeStr);
         final  ViewHolder viewHolder = holder;
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewHolder.getAdapterPosition();
+                p = viewHolder.getAdapterPosition();
 
             }
         });
@@ -97,7 +105,11 @@ public void clickEvent(){
 
     @Override
     public int getItemCount() {
-        return dataset.length;
+        return dataset.size();
+    }
+
+    public int getPosition(){
+        return p;
     }
 
 }
