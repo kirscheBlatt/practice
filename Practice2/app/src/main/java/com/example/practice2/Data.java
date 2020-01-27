@@ -21,4 +21,16 @@ public class Data {
         return data;
     }
 
+    //todo 後でｊそんファイルにする
+
+    //    private JSONObject createJSON(){
+//       JSONObject jsonObject = new JSONObject();
+//        try {
+//            jsonObject.put("name",editText.getText().toString());
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        return jsonObject;
+//    }
+
 }

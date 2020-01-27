@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Environment;
 import android.os.FileObserver;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,8 +33,9 @@ public class MainUIFragment extends Fragment {
     List<Map<String, Object>> dataList = new ArrayList<>();
     Data mData = Data.getInstance();
     private View mView = null;
-    public static final String fileName = "file.txt";
+    private String fileName = Environment.getExternalStorageDirectory().toString() + "/Android/data/com/.example.practice2/setting.json";
     static int p;
+
 
     public static MainUIFragment newInstance() {
         MainUIFragment fragment = new MainUIFragment();

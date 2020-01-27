@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -32,6 +34,8 @@ import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.FilterWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -47,6 +51,8 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class PersonalFragment extends Fragment {
 
+
+    private String fileName = Environment.getExternalStorageDirectory().toString() + "/Android/data/com/.example.practice2/setting.json";
     public PersonalFragment() {
     }
 
@@ -56,12 +62,6 @@ public class PersonalFragment extends Fragment {
      * データ保存用のリスト
      */
     List<Map<String, Object>> list = new ArrayList<>();
-
-    /**
-     *　保存のテキストファイルの名前
-     */
-    private String fileName = "file.txt";
-
 
     private EditText editText;
     private ImageView personalImage;
@@ -105,12 +105,7 @@ public class PersonalFragment extends Fragment {
 
 
 
-        //テキストファイル作成
-        if (modifyMode){
 
-        }else {
-            createFile();
-        }
 
         personalImage = v.findViewById(R.id.image);
         selectButton = v.findViewById(R.id.selectButton);
@@ -156,7 +151,7 @@ public class PersonalFragment extends Fragment {
 
                 String text = editText.getText().toString();
 
-                saveFile(fileName,text);
+                saveFile(fileName);
 //              JSONObject jsonObject = createJSON();
 //               new CachePref().put("name",jsonObject.toString());
 //
@@ -260,15 +255,7 @@ public class PersonalFragment extends Fragment {
         fragmentTransaction.commit();
     }
 
-//    private JSONObject createJSON(){
-//       JSONObject jsonObject = new JSONObject();
-//        try {
-//            jsonObject.put("name",editText.getText().toString());
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        return jsonObject;
-//    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -294,45 +281,68 @@ public class PersonalFragment extends Fragment {
         parcelFileDescriptor.close();
         return image;
     }
-    public void createFile() {
-        File file = new File(getContext().getFilesDir() + "/" + fileName);
-        if(!file.exists()){
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-            }
+//    public void createFile() {
+//        File file = new File(getContext().getFilesDir() + "/" + fileName);
+//        if(!file.exists()){
+//            try {
+//                file.createNewFile();
+//            } catch (IOException e) {
+//            }
+//        }
+//    }
+
+    public void saveFile(String fileName) {
+
+        JSONObject jsonObject = new JSONObject();
+        try{
+            EditText writeName = getActivity().findViewById(R.id.writeName);
+            jsonObject.put("name",writeName.getText().toString());
+            saveTextFile(fileName,jsonObject.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+
+//            FileOutputStream fos = getContext().openFileOutput(file, MODE_PRIVATE);
+//            OutputStreamWriter osw = new OutputStreamWriter(fos);
+//            BufferedWriter writer = new BufferedWriter(osw);
+//            writer.write(str);
+//            writer.close();
+
     }
 
-    public void saveFile(String file, String str) {
+    //todo あとでアプリ外のファイル入れるように修正
+//    public String readFile(String file) {
+//        String text = null;
+//        try {
+//            FileInputStream fileInputStream = getContext().openFileInput(file);
+//            BufferedReader reader = new BufferedReader(
+//                    new InputStreamReader(fileInputStream, "UTF-8"));
+//            String lineBuffer;
+//            while( (lineBuffer = reader.readLine()) != null ) {
+//                text = lineBuffer ;
+//            }
+//
+//        } catch (IOException e) {
+//            text = "null";
+//        }
+//
+//        return text;
+//    }
+
+    public void saveTextFile(String fileName,String data){
+        File file = new File(fileName);
+        File dir = new File(file.getParent());
+        dir.mkdirs();
+        BufferedWriter bw = null;
         try {
-            FileOutputStream fos = getContext().openFileOutput(file, MODE_PRIVATE);
-            OutputStreamWriter osw = new OutputStreamWriter(fos);
-            BufferedWriter writer = new BufferedWriter(osw);
-            writer.write(str);
-            writer.close();
+            bw = new BufferedWriter(new FileWriter(file,false));
+            bw.write(data);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
-    public String readFile(String file) {
-        String text = null;
-        try {
-            FileInputStream fileInputStream = getContext().openFileInput(file);
-            BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(fileInputStream, "UTF-8"));
-            String lineBuffer;
-            while( (lineBuffer = reader.readLine()) != null ) {
-                text = lineBuffer ;
-            }
-
-        } catch (IOException e) {
-            text = "null";
-        }
-
-        return text;
-    }
 
     private void calcAge(String yea,String  mon,String  da){
 
