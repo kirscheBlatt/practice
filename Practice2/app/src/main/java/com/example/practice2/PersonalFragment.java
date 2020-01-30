@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -33,7 +35,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.FilterWriter;
 import java.io.IOException;
@@ -49,10 +53,11 @@ import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
 
 
-public class PersonalFragment extends Fragment {
+public class PersonalFragment extends Fragment implements ActivityCompat.OnRequestPermissionsResultCallback {
 
-
+    // get file path
     private String fileName = Environment.getExternalStorageDirectory().toString() + "/Android/data/com/.example.practice2/setting.json";
+
     public PersonalFragment() {
     }
 
@@ -104,6 +109,33 @@ public class PersonalFragment extends Fragment {
         list = mData.getPersonalDataList();
 
 
+        // get file state
+        String status   = Environment.getExternalStorageState();
+
+
+
+        if (!status.equals(Environment.MEDIA_MOUNTED)) {
+          // media is not mounted
+        } else  if (!(new File(fileName)).exists()) {
+          // file does not exists
+        }
+
+
+
+
+
+
+ // Android 6, API 23以上でパーミッシンの確認
+        if (Build.VERSION.SDK_INT >= 23) {
+            checkPermission();
+        } else {
+            setUpReadWriteExternalStorage();
+        }
+
+
+
+
+
 
 
 
@@ -117,8 +149,6 @@ public class PersonalFragment extends Fragment {
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 intent.setType("image/*");
                 startActivityForResult(intent,RESULT_PICK_IMAGEFILE);
-
-
                 makeList();
             }
         });
@@ -132,12 +162,15 @@ public class PersonalFragment extends Fragment {
             Map<String,Object> map = list.get(posi);
             String string = (String) map.get("名前");
 
+            String s = readFile(fileName);
 
-            if (string != null) {
-                editText.setText(string);
-            } else {
-                editText.setText("akan");
-            }
+            editText.setText(s);
+//
+//            if (string != null) {
+//                editText.setText(string);
+//            } else {
+//                editText.setText("akan");
+//            }
 
         }
 
@@ -291,13 +324,13 @@ public class PersonalFragment extends Fragment {
 //        }
 //    }
 
-    public void saveFile(String fileName) {
+    public void saveFile(String name) {
 
         JSONObject jsonObject = new JSONObject();
         try{
             EditText writeName = getActivity().findViewById(R.id.writeName);
             jsonObject.put("name",writeName.getText().toString());
-            saveTextFile(fileName,jsonObject.toString());
+            saveTextFile(fileName,"a");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -308,6 +341,26 @@ public class PersonalFragment extends Fragment {
 //            writer.write(str);
 //            writer.close();
 
+    }
+
+    public static String readFile(String name){
+        String ret = "";
+        try{
+            File file = new File(name);
+
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+            String str = bufferedReader.readLine();
+            while (str!=null){
+                ret += str;
+                str = bufferedReader.readLine();
+                bufferedReader.close();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+return ret;
     }
 
     //todo あとでアプリ外のファイル入れるように修正
@@ -329,14 +382,15 @@ public class PersonalFragment extends Fragment {
 //        return text;
 //    }
 
-    public void saveTextFile(String fileName,String data){
-        File file = new File(fileName);
+    public void saveTextFile(String name,String data){
+        File file = new File(name);
         File dir = new File(file.getParent());
         dir.mkdirs();
         BufferedWriter bw = null;
         try {
             bw = new BufferedWriter(new FileWriter(file,false));
             bw.write(data);
+            bw.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
