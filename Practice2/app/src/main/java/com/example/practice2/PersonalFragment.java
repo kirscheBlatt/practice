@@ -1,12 +1,15 @@
 package com.example.practice2;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -56,7 +59,9 @@ import static android.content.Context.MODE_PRIVATE;
 public class PersonalFragment extends Fragment implements ActivityCompat.OnRequestPermissionsResultCallback {
 
     // get file path
-    private String fileName = Environment.getExternalStorageDirectory().toString() + "/Android/data/com/.example.practice2/setting.json";
+    private String filePath = Environment.getExternalStorageDirectory().toString() + "/Android/data/com/.example.practice2/setting.json";
+
+    private final int REQUEST_PERMISSION = 1000;
 
     public PersonalFragment() {
     }
@@ -109,35 +114,7 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
         list = mData.getPersonalDataList();
 
 
-        // get file state
-        String status   = Environment.getExternalStorageState();
-
-
-
-        if (!status.equals(Environment.MEDIA_MOUNTED)) {
-          // media is not mounted
-        } else  if (!(new File(fileName)).exists()) {
-          // file does not exists
-        }
-
-
-
-
-
-
- // Android 6, API 23以上でパーミッシンの確認
-        if (Build.VERSION.SDK_INT >= 23) {
-            checkPermission();
-        } else {
-            setUpReadWriteExternalStorage();
-        }
-
-
-
-
-
-
-
+        checkPermission();
 
         personalImage = v.findViewById(R.id.image);
         selectButton = v.findViewById(R.id.selectButton);
@@ -162,7 +139,7 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
             Map<String,Object> map = list.get(posi);
             String string = (String) map.get("名前");
 
-            String s = readFile(fileName);
+            String s = readFile(filePath);
 
             editText.setText(s);
 //
@@ -184,7 +161,7 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
 
                 String text = editText.getText().toString();
 
-                saveFile(fileName);
+                saveFile(filePath);
 //              JSONObject jsonObject = createJSON();
 //               new CachePref().put("name",jsonObject.toString());
 //
@@ -330,7 +307,7 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
         try{
             EditText writeName = getActivity().findViewById(R.id.writeName);
             jsonObject.put("name",writeName.getText().toString());
-            saveTextFile(fileName,"a");
+            saveTextFile(name,"a");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -437,4 +414,51 @@ return ret;
         mData.setPersonalDataList(list);
     }
 
+    // permissionの確認
+    public void checkPermission() {
+        // 既に許可している
+        if (ActivityCompat.checkSelfPermission(this.getContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+                PackageManager.PERMISSION_GRANTED){
+        }
+        // 拒否していた場合
+        else{
+            requestLocationPermission();
+        }
+    }
+
+    // 許可を求める
+    private void requestLocationPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this.getActivity(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            ActivityCompat.requestPermissions(this.getActivity(),
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_PERMISSION);
+
+        } else {
+            Toast toast =
+                    Toast.makeText(this.getActivity(), "アプリ実行に許可が必要です", Toast.LENGTH_SHORT);
+            toast.show();
+
+            ActivityCompat.requestPermissions(this.getActivity(),
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,},
+                    REQUEST_PERMISSION);
+        }
+    }
+
+    // 結果の受け取り
+    @Override
+    public void onRequestPermissionsResult(
+            int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_PERMISSION) {
+            // 使用が許可された
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+            } else {
+                // それでも拒否された時の対応
+                Toast toast =
+                        Toast.makeText(this.getActivity(), "何もできません", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        }
+    }
 }
