@@ -31,21 +31,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileDescriptor;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.FilterWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -53,7 +41,7 @@ import java.util.List;
 import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
-import static android.content.Context.MODE_PRIVATE;
+import static com.example.practice2.MainUIFragment.p;
 
 
 public class PersonalFragment extends Fragment implements ActivityCompat.OnRequestPermissionsResultCallback {
@@ -136,20 +124,25 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
 
         }else {
 
-            Map<String,Object> map = list.get(posi);
-            String string = (String) map.get("名前");
+            // Map<String,Object> map = list.get(posi);
+            //String string = (String) map.get("名前");
 
-            String s = readFile(filePath);
 
-            editText.setText(s);
+//            if (99 != p) {
 //
-//            if (string != null) {
-//                editText.setText(string);
-//            } else {
-//                editText.setText("akan");
+//                try {
+//                    mData.parseJsonToMap(mData.readFile(filePath));
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                editText.setText(mData.jMap.get("名前").toString());
 //            }
 
+            String s =mData.readFile(filePath);
+            editText.setText(s);
         }
+
 
         /**
          * 登録ボタンの処理
@@ -160,19 +153,6 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
             public void onClick(View view){
 
                 String text = editText.getText().toString();
-
-                saveFile(filePath);
-//              JSONObject jsonObject = createJSON();
-//               new CachePref().put("name",jsonObject.toString());
-//
-//                File file = new File("c:¥¥tmp¥¥test.txt");
-//                try {
-//                    FileWriter filewriter = new FileWriter(file);
-//
-//                    filewriter.write(jsonObject.toString());
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
                 makeList();
                 showMainUIFragment();
             }
@@ -251,9 +231,6 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
 
             }
         });
-
-
-
         return v;
     }
 
@@ -291,97 +268,12 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
         parcelFileDescriptor.close();
         return image;
     }
-//    public void createFile() {
-//        File file = new File(getContext().getFilesDir() + "/" + fileName);
-//        if(!file.exists()){
-//            try {
-//                file.createNewFile();
-//            } catch (IOException e) {
-//            }
-//        }
-//    }
-
-    public void saveFile(String name) {
-
-        JSONObject jsonObject = new JSONObject();
-        try{
-            EditText writeName = getActivity().findViewById(R.id.writeName);
-            jsonObject.put("name",writeName.getText().toString());
-            saveTextFile(name,"a");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-//            FileOutputStream fos = getContext().openFileOutput(file, MODE_PRIVATE);
-//            OutputStreamWriter osw = new OutputStreamWriter(fos);
-//            BufferedWriter writer = new BufferedWriter(osw);
-//            writer.write(str);
-//            writer.close();
-
-    }
-
-    public static String readFile(String name){
-        String ret = "";
-        try{
-            File file = new File(name);
-
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-            String str = bufferedReader.readLine();
-            while (str!=null){
-                ret += str;
-                str = bufferedReader.readLine();
-                bufferedReader.close();
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-return ret;
-    }
-
-    //todo あとでアプリ外のファイル入れるように修正
-//    public String readFile(String file) {
-//        String text = null;
-//        try {
-//            FileInputStream fileInputStream = getContext().openFileInput(file);
-//            BufferedReader reader = new BufferedReader(
-//                    new InputStreamReader(fileInputStream, "UTF-8"));
-//            String lineBuffer;
-//            while( (lineBuffer = reader.readLine()) != null ) {
-//                text = lineBuffer ;
-//            }
-//
-//        } catch (IOException e) {
-//            text = "null";
-//        }
-//
-//        return text;
-//    }
-
-    public void saveTextFile(String name,String data){
-        File file = new File(name);
-        File dir = new File(file.getParent());
-        dir.mkdirs();
-        BufferedWriter bw = null;
-        try {
-            bw = new BufferedWriter(new FileWriter(file,false));
-            bw.write(data);
-            bw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
 
     private void calcAge(String yea,String  mon,String  da){
-
 
         int y = Integer.valueOf(yea);
         int m = Integer.valueOf(mon);
         int d = Integer.valueOf(da);
-
 
         Calendar target = Calendar.getInstance();
 //今日の日付を取るならsetメソッドは不要，Calendarクラスで月は1小さい数で表す
@@ -409,10 +301,11 @@ return ret;
         personalData.put("公開", true);
         personalData.put("画像", "どうしよう");
 
-
         list.add(personalData);
         mData.setPersonalDataList(list);
+        mData.saveFile(filePath,getActivity());
     }
+
 
     // permissionの確認
     public void checkPermission() {

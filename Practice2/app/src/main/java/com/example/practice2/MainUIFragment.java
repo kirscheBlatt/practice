@@ -33,8 +33,9 @@ public class MainUIFragment extends Fragment {
     List<Map<String, Object>> dataList = new ArrayList<>();
     Data mData = Data.getInstance();
     private View mView = null;
-    private String fileName = Environment.getExternalStorageDirectory().toString() + "/Android/data/com/.example.practice2/setting.json";
-    static int p;
+    private String filePath = Environment.getExternalStorageDirectory().toString() + "/Android/data/com/.example.practice2/setting.json";
+    static int p = 99;
+
 
 
     public static MainUIFragment newInstance() {
@@ -65,8 +66,7 @@ public class MainUIFragment extends Fragment {
         recyclerView.addItemDecoration(itemDecoration);
         recyclerView.setLayoutManager(rLayoutManager);
 
-        PersonalFragment personalFragment = new PersonalFragment();
-//        String  s = personalFragment.readFile(fileName);
+
         //todo 画像とほかのデータももらってきていれる
         dataList = mData.getPersonalDataList();
 
@@ -93,7 +93,10 @@ public class MainUIFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 p= rAdapter.getPosition();
-                showPersonalFragment(false,p);
+                if (99 != p){
+                    showPersonalFragment(false,p);
+                }
+
             }
         });
 
