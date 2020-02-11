@@ -246,7 +246,7 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == RESULT_PICK_IMAGEFILE && requestCode == RESULT_OK){
+        if (requestCode == RESULT_PICK_IMAGEFILE && resultCode == RESULT_OK){
             Uri uri = null;
             if (data != null){
                 uri = data.getData();
