@@ -21,6 +21,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.json.JSONException;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,10 +69,17 @@ public class MainUIFragment extends Fragment {
         recyclerView.setLayoutManager(rLayoutManager);
 
 
-        //todo 画像とほかのデータももらってきていれる
-        dataList = mData.getPersonalDataList();
-
-
+        if (mData.jMap !=null) {
+            String s = mData.readFile(filePath);
+            try {
+                dataList.add(mData.parseJsonToMap(s));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }else {
+            //todo 画像とほかのデータももらってきていれる
+           //  dataList = mData.getPersonalDataList();
+        }
         final MyAdapter rAdapter = new MyAdapter(dataList){
             @Override
             public void clickEvent(){

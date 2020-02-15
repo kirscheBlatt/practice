@@ -8,6 +8,8 @@
     android:background="@color/mainGray"
     >
 
+
+
     <TextView
         android:id="@+id/userList"
         android:text="@string/user_list"
@@ -58,8 +60,10 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logView"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:background="@drawable/custom_button"
         android:layout_margin="8dp"
+        android:layout_marginBottom="@dimen/BASIC_MARGIN"
         />
     <Button
         android:id="@+id/modify"
