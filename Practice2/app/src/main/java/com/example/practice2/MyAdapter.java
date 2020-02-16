@@ -89,7 +89,7 @@ public void clickEvent(){
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Map<String, Object> item = dataset.get(position);
         String menuName = (String)item.get("名前");
-        int menuAge = (Integer)item.get("年齢");
+        String  menuAge = (String)item.get("年齢");
         String menuAgeStr = String.valueOf(menuAge);
         holder.nameTextView.setText(menuName);
         holder.ageTextView.setText(menuAgeStr);

@@ -69,17 +69,13 @@ public class MainUIFragment extends Fragment {
         recyclerView.setLayoutManager(rLayoutManager);
 
 
-        if (mData.jMap !=null) {
+
             String s = mData.readFile(filePath);
             try {
                 dataList.add(mData.parseJsonToMap(s));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }else {
-            //todo 画像とほかのデータももらってきていれる
-           //  dataList = mData.getPersonalDataList();
-        }
         final MyAdapter rAdapter = new MyAdapter(dataList){
             @Override
             public void clickEvent(){

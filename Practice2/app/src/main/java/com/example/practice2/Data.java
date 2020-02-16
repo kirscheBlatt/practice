@@ -13,6 +13,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +26,7 @@ class Data {
 
 
     List<Map<String, Object>> personalDataList = new ArrayList<>();
-    Map<String , Object> jMap ;
+    Map<String , Object> jMap = new HashMap<>();
 
 
     private static final Data data = new Data();
