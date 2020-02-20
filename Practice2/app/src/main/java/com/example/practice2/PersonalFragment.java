@@ -74,6 +74,7 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
     private TextView ageNumberText;
     static boolean modifyMode;
     static int posi;
+    private String imagepath;
 
     /**
      * インスタンス化の時に引数を渡すよう
@@ -234,6 +235,8 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
         return v;
     }
 
+
+    //メイン画面に遷移するメソッド
     private void showMainUIFragment(){
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -250,7 +253,9 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
             Uri uri = null;
             if (data != null){
                 uri = data.getData();
-                
+
+                imagepath = uri.toString();
+
                 try {
                     Bitmap bmp = getBitmapFromUri(uri);
                     personalImage.setImageBitmap(bmp);
@@ -258,6 +263,7 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
                     e.printStackTrace();
                 }
             }
+
         }
     }
 
