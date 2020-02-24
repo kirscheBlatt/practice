@@ -6,15 +6,12 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 import android.view.LayoutInflater;
@@ -22,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -29,9 +27,6 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.json.JSONException;
-
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,22 +41,10 @@ import static com.example.practice2.MainUIFragment.p;
 
 public class PersonalFragment extends Fragment implements ActivityCompat.OnRequestPermissionsResultCallback {
 
-    // get file path
+    // ファイルパス
     private String filePath = Environment.getExternalStorageDirectory().toString() + "/Android/data/com/.example.practice2/setting.json";
-
     private final int REQUEST_PERMISSION = 1000;
-
-    public PersonalFragment() {
-    }
-
-    Data mData = Data.getInstance();
-
-    /**
-     * データ保存用のリスト
-     */
-    List<Map<String, Object>> list = new ArrayList<>();
-
-    private EditText editText;
+    private EditText editNameText;
     private ImageView personalImage;
     private Button selectButton;
     private static final int RESULT_PICK_IMAGEFILE = 1000;
@@ -72,16 +55,33 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
     private String  day = "1";
     private int age = 1;
     private TextView ageNumberText;
-    static boolean modifyMode;
+    private EditText addressText;
+    private CheckBox addressCheck;
+    static boolean addMode;
     static int posi;
     private String imagepath;
 
+
+    //データクラスのインスタンスを取得
+    Data mData = Data.getInstance();
+
     /**
-     * インスタンス化の時に引数を渡すよう
+     * コンストラクタ
+     */
+    public PersonalFragment() {
+    }
+
+    /**
+     * データ保存用のリスト
+     */
+    List<Map<String, Object>> list = new ArrayList<>();
+
+    /**
+     * インスタンス化の時にモードとポジションをもらう
      */
     static PersonalFragment newInstance(boolean mode,int p) {
         PersonalFragment personalfragment = new PersonalFragment();
-        modifyMode = mode;
+        addMode = mode;
         posi = p;
         return personalfragment;
     }
@@ -100,13 +100,18 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
                              Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.fragment_personal, container, false);
 
+        //リストをうけとる
         list = mData.getPersonalDataList();
-
-
-        checkPermission();
-
         personalImage = v.findViewById(R.id.image);
         selectButton = v.findViewById(R.id.selectButton);
+        editNameText = v.findViewById(R.id.writeName);
+        addressText = v.findViewById(R.id.editAddress);
+        addressCheck = v.findViewById(R.id.openAddress);
+
+        //権限チェック
+        checkPermission();
+
+        //選択ボタンの処理
         selectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,16 +124,12 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
             }
         });
 
-        editText = v.findViewById(R.id.writeName);
-
-        if (modifyMode){
+        //新規なら空白、編集なら中身あり
+        if (addMode){
 
         }else {
-
             // Map<String,Object> map = list.get(posi);
             //String string = (String) map.get("名前");
-
-
 //            if (99 != p) {
 //
 //                try {
@@ -139,9 +140,8 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
 //
 //                editText.setText(mData.jMap.get("名前").toString());
 //            }
-
             String s =mData.readFile(filePath);
-            editText.setText(s);
+            editNameText.setText(s);
         }
 
 
@@ -152,8 +152,6 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-
-                String text = editText.getText().toString();
                 makeList();
                 showMainUIFragment();
             }
@@ -166,7 +164,6 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 showMainUIFragment();
             }
         });
@@ -254,7 +251,9 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
             if (data != null){
                 uri = data.getData();
 
-                imagepath = uri.toString();
+                if (uri !=null){
+                    imagepath = uri.toString();
+                }
 
                 try {
                     Bitmap bmp = getBitmapFromUri(uri);
@@ -297,19 +296,21 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
 
     private void makeList(){
         Map<String, Object> personalData = new HashMap<>();
-        personalData.put("名前", editText.getText().toString());
+        personalData.put("名前", editNameText.getText().toString());
         personalData.put("性別", gender);
         personalData.put("生年", year);
         personalData.put("生月", month);
         personalData.put("生日", day);
         personalData.put("年齢", age);
-        personalData.put("住所", "");
-        personalData.put("公開", true);
-        personalData.put("画像", "どうしよう");
+        personalData.put("住所", addressText.getText().toString());
+        personalData.put("公開", addressCheck.isChecked());
+        if (imagepath !=null){
+            personalData.put("画像",imagepath);
+        }
 
         list.add(personalData);
         mData.setPersonalDataList(list);
-        mData.saveFile(filePath,getActivity());
+        mData.saveFile(filePath);
     }
 
 

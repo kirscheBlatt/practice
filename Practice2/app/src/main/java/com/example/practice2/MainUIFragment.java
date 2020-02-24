@@ -61,7 +61,7 @@ public class MainUIFragment extends Fragment {
         mView = v;
 
         //RecyclerViewの設置
-        RecyclerView recyclerView = (RecyclerView)v.findViewById(R.id.userRecyclerView);
+        final RecyclerView recyclerView = (RecyclerView)v.findViewById(R.id.userRecyclerView);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager rLayoutManager = new LinearLayoutManager(getActivity());
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL);
@@ -71,11 +71,16 @@ public class MainUIFragment extends Fragment {
 
 
             String s = mData.readFile(filePath);
-            try {
-                dataList.add(mData.parseJsonToMap(s));
-            } catch (JSONException e) {
-                e.printStackTrace();
+
+            if (s !=null){
+                try {
+                    mData.parseJsonArray(s);
+                    dataList = mData.personalDataList;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
+
         final MyAdapter rAdapter = new MyAdapter(dataList){
             @Override
             public void clickEvent(){
@@ -85,6 +90,7 @@ public class MainUIFragment extends Fragment {
 
         Button addButton = v.findViewById(R.id.add);
         Button modifyButton = v.findViewById(R.id.modify);
+        Button deleteButton = v. findViewById(R.id.delete);
         //追加ボタンの処理
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +110,19 @@ public class MainUIFragment extends Fragment {
 
             }
         });
+        //デリーとボタンの処理
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                p= rAdapter.getPosition();
+                if (p<mData.personalDataList.size()){
+                    mData.personalDataList.remove(p);
+                   rAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+
+
 
         TextView logText = v.findViewById(R.id.logData);
         int n = dataList.size();
@@ -111,6 +130,7 @@ public class MainUIFragment extends Fragment {
 
         return v;
     }
+
 
     private void showPersonalFragment(boolean addMode, int pos){
 

@@ -60,7 +60,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     MyAdapter(List<Map<String, Object>> myDataset) {
         dataset = myDataset;
-
     }
 
 

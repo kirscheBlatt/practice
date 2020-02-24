@@ -1,10 +1,11 @@
 package com.example.practice2;
 
 import android.app.Activity;
+import android.icu.text.StringSearch;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -19,24 +20,29 @@ import java.util.Map;
 
 /**
  * データの入出力とパース
+ * 基本はリストで管理、必要に応じて切り出しや変換を行う
  */
 
 class Data {
 
 
-
+    /**
+     * 登録されたデータを格納するリスト
+     */
     List<Map<String, Object>> personalDataList = new ArrayList<>();
     Map<String , Object> jMap = new HashMap<>();
 
-
     private static final Data data = new Data();
+
     static Data getInstance() {
         return data;
     }
 
+
     void setPersonalDataList(List<Map<String, Object>> personalList) {
         this.personalDataList = personalList;
     }
+
 
     List<Map<String, Object>> getPersonalDataList() {
         return personalDataList;
@@ -71,14 +77,10 @@ class Data {
     /**
      * データをJsonデータに変換するメソッド
      * @param name
-     * @param activity
      */
-    void saveFile(String name, Activity activity) {
-
-        JSONObject jsonObject = new JSONObject();
+    void saveFile(String name) {
         try{
-            personalDataToJson(jsonObject);
-            saveTextFile(name,jsonObject.toString());
+            saveTextFile(name,makeJsonArrey((ArrayList)personalDataList).toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -103,10 +105,10 @@ class Data {
         }
     }
 
-    //Jsonに変換
-    private void personalDataToJson(JSONObject json) throws JSONException {
-        for (int i = 0; i < personalDataList.size(); i++) {
-            Map<String, Object> map = personalDataList.get(i);
+    //個人情報をjsonに変換
+    private JSONObject personalDataToJson(int po) throws JSONException {
+            Map<String, Object> map = personalDataList.get(po);
+            JSONObject json = new JSONObject();
             json.put("name",map.get("名前"));
             json.put("gender",map.get("性別"));
             json.put("birthYear",map.get("生年"));
@@ -114,13 +116,13 @@ class Data {
             json.put("birthDay",map.get("生日"));
             json.put("age",String.valueOf(map.get("年齢")));
             json.put("address",map.get("住所"));
-            //json.put("公開");
-            //json.put("画像");
-        }
+            json.put("open",map.get("公開"));
+            json.put("image",map.get("画像"));
+            return json;
     }
 
     //パースする関数
-    Map<String, Object> parseJsonToMap(String string) throws JSONException {
+    private Map<String, Object> parseJsonToMap(String string) throws JSONException {
         JSONObject json = new JSONObject(string);
         jMap.put("名前",json.get("name").toString());
         jMap.put("性別",json.get("gender").toString());
@@ -129,7 +131,35 @@ class Data {
         jMap.put("生日",json.get("birthDay").toString());
         jMap.put("年齢",json.get("age").toString());
         jMap.put("住所",json.get("address").toString());
+//      jMap.put("公開",json.get(" open"));
+//      jMap.put("画像",json.get("image").toString());
         return jMap;
     }
 
+    //JsonArrayを作る関数
+    JSONArray makeJsonArrey(ArrayList<Map<String, Object>> list) throws JSONException {
+
+        JSONArray jsonArray = new JSONArray();
+        if (list != null) {
+            for (int i = 0; i<list.size();i++){
+                jsonArray.put(personalDataToJson(i));
+            }
+        }
+        return jsonArray;
+    }
+
+    //JsonArrayをパースする関数
+    void parseJsonArray(String string) throws JSONException {
+        ArrayList<Map<String ,Object>> listdata = new ArrayList<Map<String,Object>>();
+        JSONArray array = new JSONArray(string);
+
+            for (int i=0;i<array.length();i++){
+                JSONObject jsonObject = array.getJSONObject(i);
+                Map<String, Object> map = (Map<String, Object>) parseJsonToMap(jsonObject.toString());
+                listdata.add(i,map)
+                ;
+            }
+
+        personalDataList=listdata;
+    }
 }
