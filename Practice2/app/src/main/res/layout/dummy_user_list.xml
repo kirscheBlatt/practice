@@ -30,12 +30,13 @@
         android:text="@string/name"
            />
        <TextView
+           android:id="@+id/list_gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/gender"
            />
         <TextView
-
+            android:id="@+id/list_birthday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/birthday"
@@ -47,6 +48,7 @@
             android:text="@string/age"
             />
         <TextView
+            android:id="@+id/list_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/address"

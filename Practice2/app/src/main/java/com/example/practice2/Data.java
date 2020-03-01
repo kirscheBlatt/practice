@@ -124,16 +124,18 @@ class Data {
     //パースする関数
     private Map<String, Object> parseJsonToMap(String string) throws JSONException {
         JSONObject json = new JSONObject(string);
-        jMap.put("名前",json.get("name").toString());
-        jMap.put("性別",json.get("gender").toString());
-        jMap.put("生年",json.get("birthYear").toString());
-        jMap.put("生月",json.get("birthMonth").toString());
-        jMap.put("生日",json.get("birthDay").toString());
-        jMap.put("年齢",json.get("age").toString());
-        jMap.put("住所",json.get("address").toString());
+        Map<String, Object> map = new HashMap<>();
+        map.put("名前",json.get("name").toString());
+        map.put("性別",json.get("gender").toString());
+        map.put("生年",json.get("birthYear").toString());
+        map.put("生月",json.get("birthMonth").toString());
+        map.put("生日",json.get("birthDay").toString());
+        map.put("年齢",json.get("age").toString());
+        map.put("住所",json.get("address").toString());
+        jMap = map;
 //      jMap.put("公開",json.get(" open"));
 //      jMap.put("画像",json.get("image").toString());
-        return jMap;
+        return map;
     }
 
     //JsonArrayを作る関数
@@ -155,8 +157,9 @@ class Data {
 
             for (int i=0;i<array.length();i++){
                 JSONObject jsonObject = array.getJSONObject(i);
-                Map<String, Object> map = (Map<String, Object>) parseJsonToMap(jsonObject.toString());
-                listdata.add(i,map)
+                Map<String, Object> map = new HashMap<>();
+                map = (Map<String, Object>) parseJsonToMap(jsonObject.toString());
+                listdata.add(map)
                 ;
             }
 

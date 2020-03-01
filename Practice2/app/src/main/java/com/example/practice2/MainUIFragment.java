@@ -110,7 +110,7 @@ public class MainUIFragment extends Fragment {
 
             }
         });
-        //デリーとボタンの処理
+        //デリートボタンの処理
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,6 +118,7 @@ public class MainUIFragment extends Fragment {
                 if (p<mData.personalDataList.size()){
                     mData.personalDataList.remove(p);
                    rAdapter.notifyDataSetChanged();
+
                 }
             }
         });
@@ -130,6 +131,7 @@ public class MainUIFragment extends Fragment {
 
         return v;
     }
+
 
 
     private void showPersonalFragment(boolean addMode, int pos){

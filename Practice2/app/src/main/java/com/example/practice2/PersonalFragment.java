@@ -141,7 +141,7 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
 //                editText.setText(mData.jMap.get("名前").toString());
 //            }
             String s =mData.readFile(filePath);
-            editNameText.setText(s);
+            editNameText.setText(mData.personalDataList.get(posi).toString());
         }
 
 
@@ -308,7 +308,12 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
             personalData.put("画像",imagepath);
         }
 
-        list.add(personalData);
+        if (addMode) {
+            list.add(personalData);
+        }else{
+            list.remove(posi);
+            list.add(posi,personalData);
+        }
         mData.setPersonalDataList(list);
         mData.saveFile(filePath);
     }
