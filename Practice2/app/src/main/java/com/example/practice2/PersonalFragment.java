@@ -36,30 +36,27 @@ import java.util.List;
 import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
-import static com.example.practice2.MainUIFragment.p;
 
 
 public class PersonalFragment extends Fragment implements ActivityCompat.OnRequestPermissionsResultCallback {
 
     // ファイルパス
     private String filePath = Environment.getExternalStorageDirectory().toString() + "/Android/data/com/.example.practice2/setting.json";
-    private final int REQUEST_PERMISSION = 1000;
     private EditText editNameText;
     private ImageView personalImage;
     private Button selectButton;
-    private static final int RESULT_PICK_IMAGEFILE = 1000;
     private RadioGroup mRadioGroup;
-    private String gender = "male";
+    private String gender = "男性";
     private String year = "2000";
     private String month ="1";
     private String  day = "1";
     private int age = 1;
-    private TextView ageNumberText;
-    private EditText addressText;
-    private CheckBox addressCheck;
-    static boolean addMode;
-    static int posi;
-    private String imagepath;
+    private TextView ageNumberText = null;
+    private EditText addressText = null;
+    private CheckBox addressCheck = null;
+    private boolean addMode = false;
+    private int position = -1;
+    private String imagePath = "";
 
 
     //データクラスのインスタンスを取得
@@ -79,10 +76,10 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
     /**
      * インスタンス化の時にモードとポジションをもらう
      */
-    static PersonalFragment newInstance(boolean mode,int p) {
+    private PersonalFragment newInstance(boolean mode,int p) {
         PersonalFragment personalfragment = new PersonalFragment();
         addMode = mode;
-        posi = p;
+        position = p;
         return personalfragment;
     }
 
@@ -119,7 +116,7 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
                 Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 intent.setType("image/*");
-                startActivityForResult(intent,RESULT_PICK_IMAGEFILE);
+                startActivityForResult(intent,Define.RESULT_PICK_IMAGE_FILE);
                 makeList();
             }
         });
@@ -128,7 +125,7 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
         if (addMode){
 
         }else {
-            // Map<String,Object> map = list.get(posi);
+            // Map<String,Object> map = list.get(position);
             //String string = (String) map.get("名前");
 //            if (99 != p) {
 //
@@ -140,8 +137,10 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
 //
 //                editText.setText(mData.jMap.get("名前").toString());
 //            }
-            String s =mData.readFile(filePath);
-            editNameText.setText(mData.personalDataList.get(posi).toString());
+            Map map = mData.personalDataList.get(position);
+            editNameText.setText(map.get("名前").toString());
+
+
         }
 
 
@@ -246,13 +245,13 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == RESULT_PICK_IMAGEFILE && resultCode == RESULT_OK){
+        if (requestCode == Define.RESULT_PICK_IMAGE_FILE && resultCode == RESULT_OK){
             Uri uri = null;
             if (data != null){
                 uri = data.getData();
 
                 if (uri !=null){
-                    imagepath = uri.toString();
+                    imagePath = uri.toString();
                 }
 
                 try {
@@ -296,23 +295,23 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
 
     private void makeList(){
         Map<String, Object> personalData = new HashMap<>();
-        personalData.put("名前", editNameText.getText().toString());
-        personalData.put("性別", gender);
-        personalData.put("生年", year);
-        personalData.put("生月", month);
-        personalData.put("生日", day);
-        personalData.put("年齢", age);
-        personalData.put("住所", addressText.getText().toString());
-        personalData.put("公開", addressCheck.isChecked());
-        if (imagepath !=null){
-            personalData.put("画像",imagepath);
+        personalData.put(Define.NAME, editNameText.getText().toString());
+        personalData.put(Define.JENDER, gender);
+        personalData.put(Define.YEAR, year);
+        personalData.put(Define.MONTH, month);
+        personalData.put(Define.DAY, day);
+        personalData.put(Define.AGE, age);
+        personalData.put(Define.ADDRESS, addressText.getText().toString());
+        personalData.put(Define.ADDRESS_CHECK, addressCheck.isChecked());
+        if (imagePath !=null){
+            personalData.put(Define.IMAGE_PATH,imagePath);
         }
 
         if (addMode) {
             list.add(personalData);
         }else{
-            list.remove(posi);
-            list.add(posi,personalData);
+            list.remove(position);
+            list.add(position,personalData);
         }
         mData.setPersonalDataList(list);
         mData.saveFile(filePath);
@@ -337,7 +336,7 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
         if (ActivityCompat.shouldShowRequestPermissionRationale(this.getActivity(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             ActivityCompat.requestPermissions(this.getActivity(),
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_PERMISSION);
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, Define.REQUEST_PERMISSION);
 
         } else {
             Toast toast =
@@ -346,7 +345,7 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
 
             ActivityCompat.requestPermissions(this.getActivity(),
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,},
-                    REQUEST_PERMISSION);
+                    Define.REQUEST_PERMISSION);
         }
     }
 
@@ -354,7 +353,7 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
     @Override
     public void onRequestPermissionsResult(
             int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == REQUEST_PERMISSION) {
+        if (requestCode == Define.REQUEST_PERMISSION) {
             // 使用が許可された
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 

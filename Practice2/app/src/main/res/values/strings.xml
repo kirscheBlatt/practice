@@ -4,7 +4,7 @@
     <string name="log">②ログ表示</string>
     <string name="log_default">現在のリスト数は０件です。</string>
     <string name="add">追加</string>
-    <string name="modify">更新</string>
+    <string name="modify">編集</string>
     <string name="delete">削除</string>
     <string name="name">①　名前</string>
     <string name="name_hint">名前の入力</string>
