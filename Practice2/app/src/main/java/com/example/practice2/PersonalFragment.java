@@ -54,8 +54,8 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
     private TextView ageNumberText = null;
     private EditText addressText = null;
     private CheckBox addressCheck = null;
-    private boolean addMode = false;
-    private int position = -1;
+    private static boolean addMode = false;
+    private static int position = -1;
     private String imagePath = "";
 
 
@@ -76,7 +76,7 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
     /**
      * インスタンス化の時にモードとポジションをもらう
      */
-    private PersonalFragment newInstance(boolean mode,int p) {
+    static PersonalFragment newInstance(boolean mode,int p) {
         PersonalFragment personalfragment = new PersonalFragment();
         addMode = mode;
         position = p;
@@ -122,25 +122,11 @@ public class PersonalFragment extends Fragment implements ActivityCompat.OnReque
         });
 
         //新規なら空白、編集なら中身あり
-        if (addMode){
-
-        }else {
-            // Map<String,Object> map = list.get(position);
-            //String string = (String) map.get("名前");
-//            if (99 != p) {
-//
-//                try {
-//                    mData.parseJsonToMap(mData.readFile(filePath));
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                editText.setText(mData.jMap.get("名前").toString());
-//            }
-            Map map = mData.personalDataList.get(position);
-            editNameText.setText(map.get("名前").toString());
-
-
+        if (!addMode){
+            String s ="";
+            Map m =  mData.personalDataList.get(position);
+            s = m.get(Define.NAME).toString();
+            editNameText.setText(s);
         }
 
 

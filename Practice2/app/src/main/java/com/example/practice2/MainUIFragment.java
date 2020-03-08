@@ -118,7 +118,6 @@ public class MainUIFragment extends Fragment {
                 if (p<mData.personalDataList.size()){
                     mData.personalDataList.remove(p);
                    rAdapter.notifyDataSetChanged();
-
                 }
             }
         });
@@ -132,6 +131,9 @@ public class MainUIFragment extends Fragment {
         return v;
     }
 
+    void writeLog(){
+
+    }
 
 
     private void showPersonalFragment(boolean addMode, int pos){
