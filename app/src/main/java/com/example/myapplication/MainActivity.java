@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         else{
             locationStart();
 
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                    5000, 50, this);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+                    100000, 10, this);
 
         }
     }
@@ -69,8 +69,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             return;
         }
 
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                1000, 50, this);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+                5000, 1, this);
 
     }
 
