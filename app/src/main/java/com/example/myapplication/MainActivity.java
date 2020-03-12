@@ -14,17 +14,50 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements LocationListener {
 
     LocationManager locationManager;
+    String str1;
+    String str2;
+    int i;
+    int n;
+
+    private final String  API_KEY = "b669f4472edfb63960433b369c9d4685";
+    private final String URL ="api.openweathermap.org/data/2.5/weather?";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        final TextView textView = findViewById(R.id.text);
+
+        Button button = findViewById(R.id.bottom);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Map<String,String> headers=new HashMap<String,String>();
+                headers.put("X-Example-Header","Example-Value");
+                try {
+                    String resultStr = Task.get("http://"+URL+"lat="+i+"&lon="+n+"&appid="+API_KEY, "UTF-8", headers);
+                    Log.d("ゆーあーるえる", "URL+\"lat=\"+i+\"&lon=\"+n+\"&appid=\"+API_KEY");
+                    Log.d("結果", "resultStr");
+                    textView.setText(resultStr);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION) !=
@@ -117,12 +150,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     public void onLocationChanged(Location location) {
         // 緯度の表示
         TextView textView1 = (TextView) findViewById(R.id.text_view1);
-        String str1 = "Latitude:"+location.getLatitude();
+        str1 = "Latitude:"+location.getLatitude();
+        i = (int) location.getLatitude();
         textView1.setText(str1);
 
         // 経度の表示
         TextView textView2 = (TextView) findViewById(R.id.text_view2);
-        String str2 = "Longtude:"+location.getLongitude();
+        str2 = "Longtude:"+location.getLongitude();
+        n = (int)location.getLongitude();
         textView2.setText(str2);
     }
 

@@ -11,6 +11,9 @@ import java.util.Map;
 public class Task {
 
 
+
+
+
     public static String get(String endpoint, String encoding, Map<String, String> headers) throws IOException {
 
         final int TIMEOUT_MILLIS = 0;// タイムアウトミリ秒：0は無限
