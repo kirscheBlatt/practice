@@ -12,6 +12,9 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
@@ -30,32 +33,26 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     String str2;
     int i;
     int n;
+    TextView textView;
 
-    private final String  API_KEY = "b669f4472edfb63960433b369c9d4685";
-    private final String URL ="api.openweathermap.org/data/2.5/weather?";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final TextView textView = findViewById(R.id.text);
+        textView = findViewById(R.id.text);
 
         Button button = findViewById(R.id.bottom);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Map<String,String> headers=new HashMap<String,String>();
-                headers.put("X-Example-Header","Example-Value");
-                try {
-                    String resultStr = Task.get("http://"+URL+"lat="+i+"&lon="+n+"&appid="+API_KEY, "UTF-8", headers);
-                    Log.d("ゆーあーるえる", "URL+\"lat=\"+i+\"&lon=\"+n+\"&appid=\"+API_KEY");
-                    Log.d("結果", "resultStr");
-                    textView.setText(resultStr);
 
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                Manager manager = new Manager();
+                textView.setText(manager.request());
+
+
             }
         });
 
@@ -170,4 +167,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     public void onProviderDisabled(String provider) {
 
     }
+
+
+
 }
