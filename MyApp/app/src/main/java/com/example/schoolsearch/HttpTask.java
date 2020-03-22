@@ -1,6 +1,7 @@
-package com.example.myapplication;
+package com.example.schoolsearch;
 
 import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,23 +11,32 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class Task implements Runnable{
+public class HttpTask implements Runnable {
 
-    private final String  API_KEY = "b669f4472edfb63960433b369c9d4685";
-    private final String  ricrute = "c897754b31a30d1a";
-    private final String URL ="api.openweathermap.org/data/2.5/weather?";
-    String ret = "";
+
+
+    String getData ="";
+    private final String URL ="https://webservice.recruit.co.jp/shingaku/school/v1/?key=c897754b31a30d1a&pref_cd=12&pref_cd=13&keyword=%E6%95%B0%E5%AD%A6&";
+
+    /**
+     * GET関数
+     * @param endpoint
+     * @param encoding
+     * @param headers
+     * @return
+     * @throws IOException
+     */
 
     public static String get(String endpoint, String encoding, Map<String, String> headers) throws IOException {
 
         final int TIMEOUT_MILLIS = 0;// タイムアウトミリ秒：0は無限
+
         final StringBuffer sb = new StringBuffer("");
 
         HttpURLConnection httpConn = null;
         BufferedReader br = null;
         InputStream is = null;
         InputStreamReader isr = null;
-
 
         try {
             URL url = new URL(endpoint);
@@ -45,7 +55,9 @@ public abstract class Task implements Runnable{
                 }
             }
             httpConn.connect();
+
             final int responseCode = httpConn.getResponseCode();
+
             if (responseCode == HttpURLConnection.HTTP_OK) {
 
                 is = httpConn.getInputStream();
@@ -85,30 +97,24 @@ public abstract class Task implements Runnable{
                 httpConn.disconnect();
             }
         }
+
         return sb.toString();
     }
 
+
     @Override
     public void run() {
-        request(10,10);
-
-    }
-
-    String request(int i, int n){
         Map<String,String> headers=new HashMap<String,String>();
         headers.put("X-Example-Header","Example-Value");
-        String resultStr = "";
         try {
-            resultStr = Task.get("http://webservice.recruit.co.jp/shingaku/school/v1/?key="+ricrute+"&pref_cd=12&pref_cd=13&keyword=%E6%95%B0%E5%AD%A6", "UTF-8", headers);
-            Log.d("ゆーあーるえる","https://webservice.recruit.co.jp/shingaku/school/v1/"+ricrute );
-            Log.d("結果", resultStr);
-            ret = resultStr;
-
-
+            String resultStr = get(URL, "UTF-8", headers);
+             HttpManager httpManager = HttpManager.getInstance();
+           httpManager.ret =resultStr;
+            Log.d("結果", "run: "+resultStr );
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return resultStr;
+
     }
 
 }
