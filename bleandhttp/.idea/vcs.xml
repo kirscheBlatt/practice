@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$/GitHub/Feeder2" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/GitHub/RssNewsfeed" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/GitHub/ble" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/GitHub/mt" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/GitHub/mt/practice" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/GitHub/practice" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/GitHub/practice/ble" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/GitHub/traveling" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/android-BluetoothLeGatt" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/form" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/mt" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/mt/practice" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/shimizu_party" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/shimizu_party/practice" vcs="Git" />
+  </component>
+</project>

@@ -1,9 +1,0 @@
-<resources>
-    <string name="app_name">Practice</string>
-
-    <string name="hint_key">company</string>
-    <string name="hint_value">US$price</string>
-    <string name="insert">insert</string>
-    <string name="read">read</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-</resources>

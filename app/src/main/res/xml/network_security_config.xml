@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<network-security-config>
-    <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">api.openweathermap.org/data/2.5/weather?</domain>
-        <domain includeSubdomains="true">api.syosetu.com/novelapi/api/</domain>
-        <domain includeSubdomains="true">webservice.recruit.co.jp/shingaku/school/v1/</domain>
-
-    </domain-config>
-</network-security-config>
