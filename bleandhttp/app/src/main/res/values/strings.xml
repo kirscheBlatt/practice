@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Bluetooth Communicator</string>
+    <string name="app_name">HttpAndBLE</string>
 
     <!-- MainActivity トースト用 -->
     <string name="bluetooth_is_not_supported">Bluetooth is not supported.</string>
@@ -9,20 +9,25 @@
     <string name="search">Search</string>
 
     <!-- MainActivity ラベル用 -->
-    <string name="device_name">Device Name : </string>
-    <string name="device_address">Device Address : </string>
-    <string name="connect">Connect</string>
-    <string name="disconnect">Disconnect</string>
-    <string name="read_string">Read string : </string>
-    <string name="write_string">Wtite string : </string>
-    <string name="hello">Hello</string>
-    <string name="world">World</string>
+    <string name="device_name">機器名 : </string>
+    <string name="device_address">機器　アドレス: </string>
+    <string name="connect">接続</string>
+    <string name="disconnect">接続解除</string>
+    <string name="read_string">読み込み : </string>
+    <string name="write_string">書き込み : </string>
+    <string name="hello">送信</string>
+    <string name="world">送信２</string>
 
     <!-- DeviceListActivity トースト用 -->
     <string name="unknown_device">Unknown device</string>
 
     <!-- DeviceListActivity メニュー用 -->
-    <string name="scan">Scan</string>
-    <string name="stop">Stop</string>
+    <string name="scan">スキャン</string>
+    <string name="stop">ストップ</string>
+
+    <!-- DeviceListActivity メニュー用 -->
+    <string name="bear">kuma</string>
+
+
 </resources>
 

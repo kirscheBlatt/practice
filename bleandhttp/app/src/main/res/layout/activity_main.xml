@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_margin="8dp"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="8dp"
         android:orientation="horizontal">
 
         <TextView
@@ -18,7 +18,7 @@
             android:textSize="18sp"/>
 
         <Space
-            android:layout_width="5dp"
+            android:layout_width="8dp"
             android:layout_height="wrap_content"/>
 
         <TextView
@@ -32,7 +32,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="8dp"
         android:orientation="horizontal">
 
         <TextView
@@ -42,7 +42,7 @@
             android:textSize="18sp"/>
 
         <Space
-            android:layout_width="5dp"
+            android:layout_width="8dp"
             android:layout_height="wrap_content"/>
 
         <TextView
@@ -54,41 +54,37 @@
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="20dp"/>
+        android:layout_height="24dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="8dp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/button_connect"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/connect"
-            android:textSize="18sp"/>
+            style="@style/button"
+            android:text="@string/connect" />
 
         <Space
-            android:layout_width="5dp"
+            android:layout_width="8dp"
             android:layout_height="wrap_content"/>
 
         <Button
             android:id="@+id/button_disconnect"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/disconnect"
-            android:textSize="18sp"/>
+            style="@style/button"
+            android:text="@string/disconnect" />
     </LinearLayout>
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="20dp"/>
+        android:layout_height="24dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="8dp"
         android:orientation="horizontal">
 
         <TextView
@@ -98,7 +94,7 @@
             android:textSize="18sp"/>
 
         <Space
-            android:layout_width="5dp"
+            android:layout_width="8dp"
             android:layout_height="wrap_content"/>
 
         <TextView
@@ -111,12 +107,12 @@
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="20dp"/>
+        android:layout_height="24dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="8dp"
         android:orientation="horizontal">
 
         <TextView
@@ -126,39 +122,43 @@
             android:textSize="18sp"/>
 
         <Space
-            android:layout_width="5dp"
+            android:layout_width="8dp"
             android:layout_height="wrap_content"/>
 
         <Button
             android:id="@+id/button_writehello"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="send"
-            android:textSize="18sp"/>
+            style="@style/button"
+            android:text="@string/hello" />
 
         <Space
-            android:layout_width="5dp"
+            android:layout_width="8dp"
             android:layout_height="wrap_content"/>
 
         <Button
             android:id="@+id/button_writeworld"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/world"
-            android:textSize="18sp"/>
+            style="@style/button"
+            android:text="@string/world" />
     </LinearLayout>
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:orientation="vertical">
     <TextView
         android:id="@+id/textview"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:text=""
         />
     <Button
         android:id="@+id/search_button"
+        style="@style/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/search"
         />
-
+</LinearLayout>
+</ScrollView>
 </LinearLayout>
